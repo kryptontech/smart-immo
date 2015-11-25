@@ -199,5 +199,10 @@ public class Bien implements Serializable {
 		Ville = ville;
 	}
 
+	@Override
+	public String toString() {
+		return getTitreBien() + "  "+ getPrixBien();
+	}
+	
 	
 }

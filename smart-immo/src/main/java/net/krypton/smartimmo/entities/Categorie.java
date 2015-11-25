@@ -46,6 +46,10 @@ public class Categorie implements Serializable{
 	}
 	
 	
+	@Override
+	public String toString() {
+		return getLibelleCategorie() ;
+	}
 	
 	
 	

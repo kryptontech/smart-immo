@@ -50,4 +50,9 @@ public class TypeOffre implements Serializable {
 		this.libelleTypeOffre = libelleTypeOffre;
 	}
 
+	@Override
+	public String toString() {
+		return getLibelleTypeOffre() ;
+	}
+	
 }

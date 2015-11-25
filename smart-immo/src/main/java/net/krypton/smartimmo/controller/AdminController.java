@@ -18,8 +18,23 @@ import net.krypton.smartimmo.service.AdminService;
 @Controller
 public class AdminController {
 	
+	
+
+	
+	
 	@Autowired
 	AdminService adminService;
+
+	@RequestMapping(value =  "/index" )
+	public String Model() {
+		return "index";
+	}
+	
+	@RequestMapping(value="/", method = RequestMethod.POST)
+	public String Admin(@Valid Admin a, BindingResult result, ModelMap model){
+		adminService.ajouterAdmin(a);
+		return "redirect:/viewAdmins";
+	}
 	
 	@RequestMapping(value="/saveAdmin", method = RequestMethod.POST)
 	public String enregistrerAdmin(@Valid Admin a, BindingResult result, ModelMap model){

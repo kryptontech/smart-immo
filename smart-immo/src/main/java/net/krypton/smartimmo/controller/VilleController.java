@@ -27,6 +27,8 @@ public class VilleController {
 	VilleService villeService;
 	@Autowired
 	RegionService regionService;
+	
+	////villeController
 
 	@RequestMapping(value="/saveVille", method = RequestMethod.POST)
 	public String enregistrerVille(@Valid @ModelAttribute("v") VilleModel v, BindingResult result, ModelMap model){
@@ -38,7 +40,7 @@ public class VilleController {
 		
 		r = RegionfindbyName(v.getRegion());
 		d.setRegion(r);
-		villeService.ajouterVille(d);
+		villeService.modifierVille(d);
 		return "redirect:/viewVilles";
 	}
 	

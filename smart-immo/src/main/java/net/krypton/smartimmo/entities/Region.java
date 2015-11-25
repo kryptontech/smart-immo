@@ -46,5 +46,10 @@ public class Region implements Serializable {
 		super();
 		// TODO Auto-generated constructor stub
 	}
+	@Override
+	public String toString() {
+		return getLibelleRegion() ;
+	}
+	
 
 }

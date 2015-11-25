@@ -110,4 +110,9 @@ public class Fournisseur implements Serializable{
 		// TODO Auto-generated constructor stub
 	}
 	
+	@Override
+	public String toString() {
+		return getPseudoFournisseur() ;
+	}
+	
 }

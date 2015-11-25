@@ -113,5 +113,10 @@ public class User implements Serializable{
 		// TODO Auto-generated constructor stub
 	}
 	
+	@Override
+	public String toString() {
+		return getNomUser() ;
+	}
+	
 	
 }

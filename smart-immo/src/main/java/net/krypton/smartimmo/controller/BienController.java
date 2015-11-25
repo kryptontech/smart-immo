@@ -4,6 +4,14 @@ import java.util.Map;
 
 import javax.validation.Valid;
 
+import net.krypton.smartimmo.entities.Bien;
+import net.krypton.smartimmo.service.BienService;
+import net.krypton.smartimmo.service.DisponibiliteService;
+import net.krypton.smartimmo.service.FournisseurService;
+import net.krypton.smartimmo.service.SousCategorieService;
+import net.krypton.smartimmo.service.TypeOffreService;
+import net.krypton.smartimmo.service.VilleService;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -11,14 +19,6 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-
-import net.krypton.smartimmo.entities.Bien;
-import net.krypton.smartimmo.service.BienService;
-import net.krypton.smartimmo.service.CommuneService;
-import net.krypton.smartimmo.service.DisponibiliteService;
-import net.krypton.smartimmo.service.FournisseurService;
-import net.krypton.smartimmo.service.SousCategorieService;
-import net.krypton.smartimmo.service.TypeOffreService;
 
 
 @Controller
@@ -35,7 +35,7 @@ public class BienController {
 	TypeOffreService typeOffreService;
 	
 	@Autowired
-	CommuneService communeService;
+	VilleService villeService;
 	
 	@Autowired
 	SousCategorieService sousCategorieService;
@@ -54,7 +54,7 @@ public class BienController {
 		
 		model.addAttribute("listFournisseur", fournisseurService.consulterFournisseurs());
 		model.addAttribute("listTypeOffre", typeOffreService.consulterTypeOffres());
-		model.addAttribute("listCommune", communeService.consulterCommunes());
+		model.addAttribute("listVille", villeService.consulterVilles());
 		model.addAttribute("listSousCategorie", sousCategorieService.consulterSousCategories());
 		model.addAttribute("listDisponibilite", disponibiliteService.consulterDisponibilites());
 		model.addAttribute("formBien", bien);
@@ -68,7 +68,7 @@ public class BienController {
 		
 		model.addAttribute("listFournisseur", fournisseurService.consulterFournisseurs());
 		model.addAttribute("listTypeOffre", typeOffreService.consulterTypeOffres());
-		model.addAttribute("listCommune", communeService.consulterCommunes());
+		model.addAttribute("listVille", villeService.consulterVilles());
 		model.addAttribute("listSousCategorie", sousCategorieService.consulterSousCategories());
 		model.addAttribute("listDisponibilite", disponibiliteService.consulterDisponibilites());
 		model.addAttribute("formBien", bien);
@@ -101,7 +101,7 @@ public class BienController {
 	{
 		map.put("listFournisseur", fournisseurService.consulterFournisseurs());
 		map.put("listTypeOffre", typeOffreService.consulterTypeOffres());
-		map.put("listCommune", communeService.consulterCommunes());
+		map.put("listVille", villeService.consulterVilles());
 		map.put("listSousCategorie", sousCategorieService.consulterSousCategories());
 		map.put("listDisponibilite", disponibiliteService.consulterDisponibilites());
 		map.put("listBien", bienService.consulterBiens());

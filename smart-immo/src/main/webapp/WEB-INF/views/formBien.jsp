@@ -92,7 +92,7 @@
    					</c:forEach>
    					</select>
                     <div class="has-error">
-                        <f:errors path="commune.libelleCommune" class="help-inline"/>
+                        <f:errors path="ville.libelleVille" class="help-inline"/>
                     </div>
                 </div>
             </div>
@@ -112,6 +112,18 @@
             </div>
         </div>
         
+           <div class="row">
+            <div class="form-group col-md-12">
+                <label class="col-md-3 control-lable" for="nomFournisseur">Du fournisseur:</label>
+                <div class="col-md-7">
+                    <f:select path="fournisseur" items="${listFournisseur}">
+   					</f:select>
+                    <div class="has-error">
+                        <f:errors path="fournisseur" class="help-inline"/>
+                    </div>
+                </div>
+            </div>
+        </div>
         
         <div class="row">
             <div class="form-group col-md-12">
