@@ -40,14 +40,6 @@ public class Categorie implements Serializable{
 		this.libelleCategorie = libelleCategorie;
 	
 	}
-	
-	@Override
-	public String toString() {
-	
-		return getLibelleCategorie();
-	
-	}
-	
 	public Categorie() {
 		super();
 		// TODO Auto-generated constructor stub

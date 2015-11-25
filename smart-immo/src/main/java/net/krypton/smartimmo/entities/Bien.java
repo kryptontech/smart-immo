@@ -6,7 +6,6 @@ import java.util.Date;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -36,20 +35,28 @@ public class Bien implements Serializable {
 	private String statutBien;
 	private Date datePubBien;
 	
-	
+	@ManyToOne(cascade = CascadeType.ALL)
+	@JoinColumn(name="id_fournisseur")
 	private Fournisseur fournisseur;
+	
+	@ManyToOne(cascade = CascadeType.ALL)
+	@JoinColumn(name="Ville")
+	private Ville Ville;
 
 	
 	
-	private Commune commune;
+	private String commune;
 	
-	
+	@ManyToOne(cascade = CascadeType.ALL)
+	@JoinColumn(name="id_disponibilite")
 	private Disponibilite disponibilite;
 	
-	
+	@ManyToOne(cascade = CascadeType.ALL)
+	@JoinColumn(name="id_typeoffre")
 	private TypeOffre typeoffre;
 	
-	
+	@ManyToOne(cascade = CascadeType.ALL)
+	@JoinColumn(name="id_souscategorie")
 	private SousCategorie souscategorie;
 
 	public int getIdBien() {
@@ -116,9 +123,6 @@ public class Bien implements Serializable {
 		this.statutBien = statutBien;
 	}
 
-	
-	@ManyToOne(fetch = FetchType.EAGER , cascade=CascadeType.ALL)
-	@JoinColumn(name="id_fournisseur")
 	public Fournisseur getFournisseur() {
 		return fournisseur;
 	}
@@ -129,19 +133,14 @@ public class Bien implements Serializable {
 
 
 
-	@ManyToOne(fetch = FetchType.EAGER , cascade=CascadeType.ALL)
-	@JoinColumn(name="id_commune")
-	public Commune getCommune() {
+	public String getCommune() {
 		return commune;
 	}
 
-	public void setCommune(Commune commune) {
+	public void setCommune(String commune) {
 		this.commune = commune;
 	}
 
-	
-	@ManyToOne(fetch = FetchType.EAGER , cascade=CascadeType.ALL)
-	@JoinColumn(name="id_disponibilite")
 	public Disponibilite getDisponibilite() {
 		return disponibilite;
 	}
@@ -150,9 +149,6 @@ public class Bien implements Serializable {
 		this.disponibilite = disponibilite;
 	}
 
-	
-	@ManyToOne(fetch = FetchType.EAGER , cascade=CascadeType.ALL)
-	@JoinColumn(name="id_typeoffre")
 	public TypeOffre getTypeoffre() {
 		return typeoffre;
 	}
@@ -161,9 +157,6 @@ public class Bien implements Serializable {
 		this.typeoffre = typeoffre;
 	}
 
-	
-	@ManyToOne(fetch = FetchType.EAGER , cascade=CascadeType.ALL)
-	@JoinColumn(name="id_souscategorie")
 	public SousCategorie getSouscategorie() {
 		return souscategorie;
 	}
@@ -189,11 +182,6 @@ public class Bien implements Serializable {
 		// TODO Auto-generated constructor stub
 	}
 
-	@Override
-	public String toString() {
-		return getTitreBien();
-	}
-	
 	public Date getDatePubBien() {
 		return datePubBien;
 	}
@@ -202,5 +190,14 @@ public class Bien implements Serializable {
 		this.datePubBien = datePubBien;
 	}
 	
+
+	public Ville getVille() {
+		return Ville;
+	}
+
+	public void setVille(Ville ville) {
+		Ville = ville;
+	}
+
 	
 }

@@ -5,7 +5,6 @@ import java.io.Serializable;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -25,8 +24,8 @@ public class Ville implements Serializable {
 	private int idVille;
 	private String libelleVille;
 
-	
-	
+	@ManyToOne(cascade = CascadeType.ALL)
+	@JoinColumn(name = "id_region")
 	private Region region;
 
 	public int getIdVille() {
@@ -45,9 +44,6 @@ public class Ville implements Serializable {
 		this.libelleVille = libelleVille;
 	}
 
-	
-	@ManyToOne(fetch = FetchType.EAGER , cascade=CascadeType.ALL)
-	@JoinColumn(name = "id_region")
 	public Region getRegion() {
 		return region;
 	}
@@ -61,12 +57,6 @@ public class Ville implements Serializable {
 		this.libelleVille = libelleVille;
 	}
 
-	@Override
-	public String toString(){
-		
-		return getLibelleVille();
-	}
-	
 	public Ville() {
 		super();
 		// TODO Auto-generated constructor stub

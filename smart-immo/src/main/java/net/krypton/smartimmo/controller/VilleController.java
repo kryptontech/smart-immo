@@ -1,20 +1,24 @@
 package net.krypton.smartimmo.controller;
 
+import java.util.List;
 import java.util.Map;
 
 import javax.validation.Valid;
+
+import net.krypton.smartimmo.entities.Region;
+import net.krypton.smartimmo.entities.Ville;
+import net.krypton.smartimmo.model.VilleModel;
+import net.krypton.smartimmo.service.RegionService;
+import net.krypton.smartimmo.service.VilleService;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-
-import net.krypton.smartimmo.entities.Ville;
-import net.krypton.smartimmo.service.RegionService;
-import net.krypton.smartimmo.service.VilleService;
 
 @Controller
 public class VilleController {
@@ -25,16 +29,27 @@ public class VilleController {
 	RegionService regionService;
 
 	@RequestMapping(value="/saveVille", method = RequestMethod.POST)
-	public String enregistrerVille(@Valid Ville v, BindingResult result, ModelMap model){
-		villeService.ajouterVille(v);
+	public String enregistrerVille(@Valid @ModelAttribute("v") VilleModel v, BindingResult result, ModelMap model){
+		
+		Ville d = new Ville(); 
+		
+		d.setLibelleVille(v.getLibelleVille());
+		Region r = new Region();
+		
+		r = RegionfindbyName(v.getRegion());
+		d.setRegion(r);
+		villeService.ajouterVille(d);
 		return "redirect:/viewVilles";
 	}
+	
+	
+	
 	@RequestMapping(value = "/saveVille", method = RequestMethod.GET)
 	public String newVille(ModelMap model){
-		Ville ville = new Ville();
+		VilleModel v = new VilleModel();
 		
 		model.put("listRegion", regionService.consulterRegions());
-		model.addAttribute("formVille", ville);
+		model.addAttribute("v", v);
 		model.addAttribute("edit", false);
 		return "formVille";
 	}
@@ -75,6 +90,23 @@ public class VilleController {
 		map.put("listVille", villeService.consulterVilles());
 		return "ville";
 	}
+	
+	public   Region RegionfindbyName(String name) {
+		List<Region> regs = regionService.consulterRegions();
+		Region Region = new Region();
+		for (int i = 0; i < regs.size(); i++) {
+
+			Region R = new Region();
+			R = regs.get(i);
+			
+			if (R.getLibelleRegion().equals(name)) {
+				Region = R;
+			}
+
+		}
+		return Region;
+	}
+	
 	
 	
 }

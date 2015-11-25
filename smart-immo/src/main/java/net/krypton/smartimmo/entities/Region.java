@@ -42,11 +42,6 @@ public class Region implements Serializable {
 		this.libelleRegion = libelleRegion;
 	}
 
-	@Override
-	 public String toString() {
-	  return getLibelleRegion();
-	 }
-	
 	public Region() {
 		super();
 		// TODO Auto-generated constructor stub

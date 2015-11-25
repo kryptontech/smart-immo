@@ -44,10 +44,6 @@ public class Admin implements Serializable{
 	public void setTypeUser(String typeUser) {
 		this.typeUser = typeUser;
 	}
-	
-	public String toString() {
-		return getTypeUser();
-	}
 
 
 	public Admin() {

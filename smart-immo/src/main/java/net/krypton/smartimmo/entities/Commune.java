@@ -5,7 +5,6 @@ import java.io.Serializable;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -27,7 +26,8 @@ public class Commune implements Serializable{
 	@Column(name="id_commune")
 	private int idCommune;
 	private String libelleCommune;
-	
+	@ManyToOne(cascade = CascadeType.ALL)
+	@JoinColumn(name="id_ville")
 	private Ville ville;
 
 	
@@ -51,9 +51,6 @@ public class Commune implements Serializable{
 	public void setLibelleCommune(String libelleCommune) {
 		this.libelleCommune = libelleCommune;
 	}
-	
-	@ManyToOne(fetch = FetchType.EAGER , cascade=CascadeType.ALL)
-	@JoinColumn(name="id_ville")
 	public Ville getVille() {
 		return ville;
 	}
@@ -61,10 +58,6 @@ public class Commune implements Serializable{
 		this.ville = ville;
 	}
 	
-	@Override
-	public String toString() {
-		return getLibelleCommune();
-	}
 	
 	
 	

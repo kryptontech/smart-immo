@@ -5,7 +5,6 @@ import java.io.Serializable;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -27,7 +26,8 @@ public class Album implements Serializable {
 	@Column(name="id_album")
 	private int idAlbum;
 	private String pathAlbum;
-	
+	@ManyToOne(cascade = CascadeType.ALL)
+	@JoinColumn(name="id_bien")
 	private Bien bien;
 	
 	public Album(String pathAlbum) {
@@ -46,9 +46,6 @@ public class Album implements Serializable {
 	public void setPathAlbum(String pathAlbum) {
 		this.pathAlbum = pathAlbum;
 	}
-	
-	@ManyToOne(fetch = FetchType.EAGER , cascade=CascadeType.ALL)
-	@JoinColumn(name="id_bien")
 	public Bien getBien() {
 		return bien;
 	}

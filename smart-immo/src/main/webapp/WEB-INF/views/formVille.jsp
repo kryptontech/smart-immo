@@ -5,7 +5,7 @@
 <div class="container">
  <div class="generic-container">
     <div class="well lead">VILLE FORM</div>
-    <f:form method="POST" modelAttribute="formVille" class="form-horizontal">
+    <f:form method="POST" modelAttribute="v" class="form-horizontal">
         <f:input type="hidden" path="idVille" id="idVille"/>
          
         <div class="row">

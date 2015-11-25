@@ -100,11 +100,6 @@ public class Fournisseur implements Serializable{
 	public String getTelMobileFournisseur() {
 		return telMobileFournisseur;
 	}
-	
-	@Override
-	public String toString() {
-		return getPseudoFournisseur();
-	}
 
 	public void setTelMobileFournisseur(String telMobileFournisseur) {
 		this.telMobileFournisseur = telMobileFournisseur;
