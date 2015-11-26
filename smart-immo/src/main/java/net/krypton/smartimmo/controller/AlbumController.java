@@ -1,5 +1,6 @@
 package net.krypton.smartimmo.controller;
 
+import java.util.List;
 import java.util.Map;
 
 import javax.validation.Valid;
@@ -8,11 +9,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import net.krypton.smartimmo.entities.Album;
+import net.krypton.smartimmo.entities.Bien;
 import net.krypton.smartimmo.model.AlbumModel;
 import net.krypton.smartimmo.service.AlbumService;
 import net.krypton.smartimmo.service.BienService;
@@ -29,8 +32,15 @@ public class AlbumController {
 	BienService bienService;
 
 	@RequestMapping(value="/saveAlbum", method = RequestMethod.POST)
-	public String enregistrerAlbum(@Valid Album a, BindingResult result, ModelMap model){
-		albumService.ajouterAlbum(a);
+	public String enregistrerAlbum(@Valid @ModelAttribute("a") AlbumModel a, BindingResult result, ModelMap model){
+		Album album = new Album();
+		album.setPathAlbum(a.getPathAlbum());
+		
+		Bien b = new Bien();
+		b = findBienByTitre(a.getBien());
+		
+		album.setBien(b);
+		albumService.modifierAlbum(album);
 		return "redirect:/viewAlbums";
 	}
 	@RequestMapping(value = "/saveAlbum", method = RequestMethod.GET)
@@ -81,4 +91,19 @@ public class AlbumController {
 		return "album";
 	}
 	
+	public Bien findBienByTitre(String titre)
+	{
+		List<Bien> biens = bienService.consulterBiens();
+		Bien bien = new Bien();
+		for (int i = 0; i < biens.size(); i++)
+		{
+			Bien b = new Bien();
+			b = biens.get(i);
+			 if (b.getTitreBien().equals(titre))
+			 {
+				 bien = b;
+			 }
+		}
+		return bien;
+	}
 }

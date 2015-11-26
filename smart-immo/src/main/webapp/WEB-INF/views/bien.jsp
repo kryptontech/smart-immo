@@ -55,7 +55,7 @@
        						 <td>${bien.datePubBien}</td>
        						 <td>${bien.fournisseur}</td>
        						  <td>${bien.typeoffre}</td>
-       						 <td>${bien.commune}</td>
+       						 <td>${bien.ville}</td>
        						 <td>${bien.disponibilite}</td>
        						  <td>${bien.souscategorie}</td>
         					<td class="center">
@@ -91,7 +91,7 @@
 	<footer>
 
 		<p>
-			<span style="text-align:left;float:left">&copy; 2015 <a href="http://themifycloud.com/downloads/janux-free-responsive-admin-dashboard-template/" alt="Bootstrap_Metro_Dashboard">JANUX Responsive Dashboard</a></span>
+			<span style="text-align:left;float:left">&copy; 2013 <a href="http://themifycloud.com/downloads/janux-free-responsive-admin-dashboard-template/" alt="Bootstrap_Metro_Dashboard">JANUX Responsive Dashboard</a></span>
 			
 		</p>
 

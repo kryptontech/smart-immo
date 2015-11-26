@@ -1,5 +1,6 @@
 package net.krypton.smartimmo.controller;
 
+import java.util.List;
 import java.util.Map;
 
 import javax.validation.Valid;
@@ -69,4 +70,20 @@ public class FournisseurController {
 		return "fournisseur";
 	}
 	
+	public Fournisseur findFournisseurByNom(String nom)
+	{
+		List<Fournisseur> Fournisseurs = fournisseurService.consulterFournisseurs();
+		Fournisseur Fournisseur = new Fournisseur();
+		for (int i = 0; i < Fournisseurs.size(); i++)
+		{
+			Fournisseur F = new Fournisseur();
+			F = Fournisseurs.get(i);
+			
+			if (F.getNomFournisseur().equals(nom))
+			{
+				Fournisseur = F;
+			}
+		}
+		return Fournisseur;
+	}
 }

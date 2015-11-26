@@ -32,7 +32,7 @@ public class Bien implements Serializable {
 	private String quartierBien;
 	private String descriptionBien;
 	private int nbPieceBien;
-	private String statutBien;
+	private boolean statutBien;
 	private Date datePubBien;
 	
 	@ManyToOne(cascade = CascadeType.ALL)
@@ -44,8 +44,6 @@ public class Bien implements Serializable {
 	private Ville Ville;
 
 	
-	
-	private String commune;
 	
 	@ManyToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name="id_disponibilite")
@@ -115,11 +113,11 @@ public class Bien implements Serializable {
 		this.nbPieceBien = nbPieceBien;
 	}
 
-	public String getStatutBien() {
+	public boolean getStatutBien() {
 		return statutBien;
 	}
 
-	public void setStatutBien(String statutBien) {
+	public void setStatutBien(boolean statutBien) {
 		this.statutBien = statutBien;
 	}
 
@@ -133,13 +131,6 @@ public class Bien implements Serializable {
 
 
 
-	public String getCommune() {
-		return commune;
-	}
-
-	public void setCommune(String commune) {
-		this.commune = commune;
-	}
 
 	public Disponibilite getDisponibilite() {
 		return disponibilite;
@@ -166,7 +157,7 @@ public class Bien implements Serializable {
 	}
 
 	public Bien(String titreBien, double superficieBien, int prixBien, String quartierBien, String descriptionBien,
-			int nbPieceBien, String statutBien, Date datePubBien) {
+			int nbPieceBien, boolean statutBien, Date datePubBien) {
 		super();
 		this.titreBien = titreBien;
 		this.superficieBien = superficieBien;
@@ -198,11 +189,11 @@ public class Bien implements Serializable {
 	public void setVille(Ville ville) {
 		Ville = ville;
 	}
-
-	@Override
-	public String toString() {
-		return getTitreBien() + "  "+ getPrixBien();
-	}
 	
+	@Override
+	public String toString()
+	{
+		return getTitreBien();
+	}
 	
 }

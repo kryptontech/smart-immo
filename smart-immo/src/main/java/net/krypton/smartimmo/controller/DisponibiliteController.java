@@ -1,5 +1,6 @@
 package net.krypton.smartimmo.controller;
 
+import java.util.List;
 import java.util.Map;
 
 import javax.validation.Valid;
@@ -76,5 +77,20 @@ public class DisponibiliteController {
 		return "disponibilite";
 	}
 	
-	
+	public Disponibilite findDisponibiliteByLibelle(String libDispo)
+	{
+		List<Disponibilite> disponibilites = disponibiliteService.consulterDisponibilites();
+		Disponibilite Disponibilite = new Disponibilite();
+		for (int i = 0; i < disponibilites.size(); i++)
+		{
+			Disponibilite D = new Disponibilite();
+			D = disponibilites.get(i);
+			
+			if (D.getLibelleDisponibilite().equals(libDispo))
+			{
+				Disponibilite = D;
+			}
+		}
+		return Disponibilite;
+	}
 }

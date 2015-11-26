@@ -1,5 +1,6 @@
 package net.krypton.smartimmo.controller;
 
+import java.util.List;
 import java.util.Map;
 
 import javax.validation.Valid;
@@ -76,4 +77,20 @@ public class TypeOffreController {
 		return "typeoffre";
 	}
 	
+	public TypeOffre findTypeOffreByLibelle(String tofre)
+	{
+		List<TypeOffre> TypeOffres = typeOffreService.consulterTypeOffres();
+		TypeOffre TypeOffre = new TypeOffre();
+		for (int i = 0; i < TypeOffres.size(); i++)
+		{
+			TypeOffre T = new TypeOffre();
+			T = TypeOffres.get(i);
+			
+			if (T.getLibelleTypeOffre().equals(tofre))
+			{
+				TypeOffre = T;
+			}
+		}
+		return TypeOffre;
+	}
 }

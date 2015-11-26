@@ -1,5 +1,6 @@
 package net.krypton.smartimmo.controller;
 
+import java.util.List;
 import java.util.Map;
 
 import javax.validation.Valid;
@@ -8,11 +9,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import net.krypton.smartimmo.entities.Categorie;
 import net.krypton.smartimmo.entities.SousCategorie;
+import net.krypton.smartimmo.model.SousCategorieModel;
 import net.krypton.smartimmo.service.CategorieService;
 import net.krypton.smartimmo.service.SousCategorieService;
 
@@ -25,8 +29,26 @@ public class SousCategorieController {
 	CategorieService categorieService;
 	
 	@RequestMapping(value="/saveSousCategorie", method = RequestMethod.POST)
-	public String enregistrerSousCategorie(@Valid SousCategorie v, BindingResult result, ModelMap model){
-		sousCategorieService.ajouterSousCategorie(v);
+	public String enregistrerSousCategorie(@Valid @ModelAttribute("v") SousCategorieModel v, BindingResult result, ModelMap model){
+		if (result.hasErrors())
+		{
+			return "redirect:/viewSousCategories";
+		}
+		try{
+			SousCategorie sc = new SousCategorie();
+			
+			sc.setLibelleSousCat(v.getLibelleSousCat());
+			Categorie c = new Categorie();
+			
+			c = findCategorieByName(v.getCategorie());
+			sc.setCategorie(c);
+			sousCategorieService.modifierSousCategorie(sc);
+		}catch (Exception e){
+			
+			v.setException(e.getMessage());
+		}
+		
+		
 		return "redirect:/viewSousCategories";
 	}
 	@RequestMapping(value = "/saveSousCategorie", method = RequestMethod.GET)
@@ -75,4 +97,37 @@ public class SousCategorieController {
 		return "souscategorie";
 	}
 	
+	public Categorie findCategorieByName(String categorie)
+	{
+		List<Categorie> cats = categorieService.consulterCategories();
+		Categorie cat = new Categorie();
+		for (int i=0; i < cats.size(); i++)
+		{
+			Categorie cate = new Categorie();
+			cate = cats.get(i);
+			
+			if (cate.getLibelleCategorie().equals(categorie))
+			{
+				cat = cate;
+			}
+		}
+		return cat;
+	}
+	
+	public SousCategorie findSousCategorieByLibelle(String scat)
+	{
+		List<SousCategorie> SousCategories = sousCategorieService.consulterSousCategories();
+		SousCategorie SousCategorie = new SousCategorie();
+		for (int i = 0; i < SousCategories.size(); i++)
+		{
+			SousCategorie S = new SousCategorie();
+			S = SousCategories.get(i);
+			
+			if (S.getLibelleSousCat().equals(scat))
+			{
+				SousCategorie = S;
+			}
+		}
+		return SousCategorie;
+	}
 }

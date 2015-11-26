@@ -8,6 +8,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
+import org.hibernate.validator.constraints.NotEmpty;
+
 @Entity
 public class Region implements Serializable {
 
@@ -19,6 +21,7 @@ public class Region implements Serializable {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "id_region")
 	private int idRegion;
+	@NotEmpty
 	private String libelleRegion;
 
 	public int getIdRegion() {
@@ -46,10 +49,10 @@ public class Region implements Serializable {
 		super();
 		// TODO Auto-generated constructor stub
 	}
-	@Override
-	public String toString() {
-		return getLibelleRegion() ;
-	}
-	
 
+	@Override
+	public String toString()
+	{
+		return getLibelleRegion();
+	}
 }

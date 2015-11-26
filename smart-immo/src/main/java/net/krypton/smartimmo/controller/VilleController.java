@@ -27,20 +27,28 @@ public class VilleController {
 	VilleService villeService;
 	@Autowired
 	RegionService regionService;
-	
-	////villeController
 
 	@RequestMapping(value="/saveVille", method = RequestMethod.POST)
 	public String enregistrerVille(@Valid @ModelAttribute("v") VilleModel v, BindingResult result, ModelMap model){
+		if (result.hasErrors())
+		{
+			return "redirect:/viewVilles";
+		}
+		try{
+			Ville d = new Ville(); 
+			
+			d.setLibelleVille(v.getLibelleVille());
+			Region r = new Region();
+			
+			r = RegionfindbyName(v.getRegion());
+			d.setRegion(r);
+			villeService.modifierVille(d);
+			
+		}catch (Exception e){
+			
+			v.setException(e.getMessage());
+		}
 		
-		Ville d = new Ville(); 
-		
-		d.setLibelleVille(v.getLibelleVille());
-		Region r = new Region();
-		
-		r = RegionfindbyName(v.getRegion());
-		d.setRegion(r);
-		villeService.modifierVille(d);
 		return "redirect:/viewVilles";
 	}
 	
@@ -104,12 +112,26 @@ public class VilleController {
 			if (R.getLibelleRegion().equals(name)) {
 				Region = R;
 			}
-
 		}
 		return Region;
 	}
 	
-	
+	public Ville findVilleByName(String ville)
+	{
+		List<Ville> villes = villeService.consulterVilles();
+		Ville Ville = new Ville();
+		for (int i = 0; i < villes.size(); i++)
+		{
+			Ville V = new Ville();
+			V = villes.get(i);
+			
+			if (V.getLibelleVille().equals(ville))
+			{
+				Ville = V;
+			}
+		}
+		return Ville;
+	}
 	
 }
 

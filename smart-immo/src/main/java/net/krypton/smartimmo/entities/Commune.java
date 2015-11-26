@@ -59,10 +59,6 @@ public class Commune implements Serializable{
 	}
 	
 	
-	@Override
-	public String toString() {
-		return getLibelleCommune() ;
-	}
 	
 	
 }

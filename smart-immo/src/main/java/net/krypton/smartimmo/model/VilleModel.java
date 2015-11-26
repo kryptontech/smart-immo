@@ -1,11 +1,29 @@
 package net.krypton.smartimmo.model;
 
+import org.hibernate.validator.constraints.NotEmpty;
+
 public class VilleModel {
 
 	private String idVille;
+	@NotEmpty
 	private String libelleVille;
 
+	@NotEmpty
 	private String region;
+	
+	private String exception;
+	
+	
+
+	public String getException() {
+		return exception;
+	}
+
+
+	public void setException(String exception) {
+		this.exception = exception;
+	}
+
 
 	public VilleModel(String idVille, String libelleVille, String region) {
 		super();

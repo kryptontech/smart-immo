@@ -1,5 +1,6 @@
 package net.krypton.smartimmo.controller;
 
+import java.util.List;
 import java.util.Map;
 
 import javax.validation.Valid;
@@ -73,6 +74,23 @@ public class CategorieController {
 		
 		map.put("listCategorie", categorieService.consulterCategories());
 		return "categorie";
+	}
+	
+	public Categorie findCategorieByName(String categorie)
+	{
+		List<Categorie> cats = categorieService.consulterCategories();
+		Categorie cat = new Categorie();
+		for (int i=0; i < cats.size(); i++)
+		{
+			Categorie cate = new Categorie();
+			cate = cats.get(i);
+			
+			if (cate.getLibelleCategorie().equals(categorie))
+			{
+				cat = cate;
+			}
+		}
+		return cat;
 	}
 	
 }

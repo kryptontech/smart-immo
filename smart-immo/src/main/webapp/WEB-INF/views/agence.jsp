@@ -29,7 +29,10 @@
 						  <thead>
 							  <tr>
 								  <th>Site Web</th>
-								  <th>Logo Agence</th>
+								  <th>Pseudo</th>
+								  <th>Nom</th>
+								  <th>Email</th>
+								  <th>Statut</th>
 								  <th>Adresse Agence</th>
 
 							  </tr>
@@ -39,7 +42,10 @@
 						<c:forEach items="${listAgence}" var="agence">
      					  <tr>
        						 <td>${agence.siteWebAgence}</td>
-       						 <td>${agence.logoAgence}</td>
+       						 <td>${agence.pseudoFournisseur}</td>
+       						 <td>${agence.nomFournisseur}</td>
+       						 <td>${agence.emailFournisseur}</td>
+       						 <td>${agence.statuFournisseur}</td>
        						 <td>${agence.adresseAgence}</td>
         					<td class="center">
          						<a class="btn btn-info" data-toggle="modal" href="<c:url value='/modifyAgence-${agence.idFournisseur}' />">

@@ -8,13 +8,10 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.Inheritance;
-import javax.persistence.InheritanceType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
 @Entity
-@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 public class SousCategorie implements Serializable {
 	/**
 	 * 
@@ -54,25 +51,21 @@ public class SousCategorie implements Serializable {
 		this.categorie = categorie;
 	}
 
-	public static long getSerialversionuid() {
-		return serialVersionUID;
-	}
-
-	public SousCategorie(String libelleSousCat, Categorie categorie) {
-		super();
-		this.libelleSousCat = libelleSousCat;
-
-		this.categorie = categorie;
-	}
-
 	public SousCategorie() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
 
-	@Override
-	public String toString() {
-		return getLibelleSousCat() ;
+	public SousCategorie(String libelleSousCat, Categorie categorie) {
+		super();
+		this.libelleSousCat = libelleSousCat;
+		this.categorie = categorie;
 	}
-	
+
+	@Override
+	public String toString()
+	{
+		return getLibelleSousCat();
+	}
+
 }

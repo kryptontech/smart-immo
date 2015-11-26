@@ -61,10 +61,10 @@ public class Ville implements Serializable {
 		super();
 		// TODO Auto-generated constructor stub
 	}
-	@Override
-	public String toString() {
-		return getLibelleVille() ;
-	}
-	
 
+	@Override
+	public String toString()
+	{
+		return getLibelleVille();
+	}
 }

@@ -1,5 +1,6 @@
 package net.krypton.smartimmo.controller;
 
+import java.util.List;
 import java.util.Map;
 
 import javax.validation.Valid;
@@ -18,23 +19,8 @@ import net.krypton.smartimmo.service.AdminService;
 @Controller
 public class AdminController {
 	
-	
-
-	
-	
 	@Autowired
 	AdminService adminService;
-
-	@RequestMapping(value =  "/index" )
-	public String Model() {
-		return "index";
-	}
-	
-	@RequestMapping(value="/", method = RequestMethod.POST)
-	public String Admin(@Valid Admin a, BindingResult result, ModelMap model){
-		adminService.ajouterAdmin(a);
-		return "redirect:/viewAdmins";
-	}
 	
 	@RequestMapping(value="/saveAdmin", method = RequestMethod.POST)
 	public String enregistrerAdmin(@Valid Admin a, BindingResult result, ModelMap model){
@@ -82,4 +68,21 @@ public class AdminController {
 		map.put("listAdmin", adminService.consulterAdmins());
 		return "admin";
 	}
+
+	public Admin findAdminByRole(String role)
+	{
+		List<Admin> admins = adminService.consulterAdmins();
+		Admin admin = new Admin();
+		for (int i = 0; i < admins.size(); i++)
+		{
+			Admin a = new Admin();
+			a = admins.get(i);
+			
+			if (a.getTypeUser().equals(role))
+			{
+				admin = a;	
+			}
+		}
+		return admin;
+	}	
 }

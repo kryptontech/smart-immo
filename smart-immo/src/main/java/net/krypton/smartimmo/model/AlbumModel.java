@@ -1,17 +1,33 @@
 package net.krypton.smartimmo.model;
 
+import org.hibernate.validator.constraints.NotEmpty;
+
 public class AlbumModel {
 
-	private int idAlbum;
+	private String idAlbum;
+	
+	@NotEmpty
 	private String pathAlbum;
 
+	@NotEmpty
 	private String bien;
+	
+	private String exception;
 
-	public int getIdAlbum() {
+	
+	public String getException() {
+		return exception;
+	}
+
+	public void setException(String exception) {
+		this.exception = exception;
+	}
+
+	public String getIdAlbum() {
 		return idAlbum;
 	}
 
-	public void setIdAlbum(int idAlbum) {
+	public void setIdAlbum(String idAlbum) {
 		this.idAlbum = idAlbum;
 	}
 

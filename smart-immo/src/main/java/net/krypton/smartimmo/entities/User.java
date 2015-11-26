@@ -26,7 +26,7 @@ public class User implements Serializable{
 	private String nomUser;
 	private String prenomUser;
 	private String pseudoUser;
-	private int statuUser;
+	private boolean statuUser;
 	private String mdpUser;
 	private String mailUser;
 	@ManyToOne(cascade = CascadeType.ALL)
@@ -35,11 +35,11 @@ public class User implements Serializable{
 	
 	
 	
-	public int getStatuUser() {
+	public boolean getStatuUser() {
 		return statuUser;
 	}
 
-	public void setStatuUser(int statuUser) {
+	public void setStatuUser(boolean statuUser) {
 		this.statuUser = statuUser;
 	}
 
@@ -111,11 +111,6 @@ public class User implements Serializable{
 	public User() {
 		super();
 		// TODO Auto-generated constructor stub
-	}
-	
-	@Override
-	public String toString() {
-		return getNomUser() ;
 	}
 	
 	

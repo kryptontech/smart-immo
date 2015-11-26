@@ -1,5 +1,6 @@
 package net.krypton.smartimmo.controller;
 
+import java.util.List;
 import java.util.Map;
 
 import javax.validation.Valid;
@@ -8,11 +9,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import net.krypton.smartimmo.entities.Commune;
+import net.krypton.smartimmo.entities.Ville;
+import net.krypton.smartimmo.model.CommuneModel;
 import net.krypton.smartimmo.service.CommuneService;
 import net.krypton.smartimmo.service.VilleService;
 
@@ -26,8 +30,25 @@ public class CommuneController {
 	VilleService villeService;
 	
 	@RequestMapping(value="/saveCommune", method = RequestMethod.POST)
-	public String enregistrerCommune(@Valid Commune v, BindingResult result, ModelMap model){
-		communeService.ajouterCommune(v);
+	public String enregistrerCommune(@Valid @ModelAttribute("v") CommuneModel v, BindingResult result, ModelMap model){
+		if (result.hasErrors())
+		{
+			return "redirect:/viewCommunes";
+		}
+		try{
+			Commune c = new Commune();
+			c.setLibelleCommune(v.getLibelleCommune());
+			
+			Ville ville = new Ville();
+			ville = findVilleByName(v.getVille());
+			c.setVille(ville);
+			communeService.modifierCommune(c);
+			
+		}catch (Exception e){
+			
+			v.setException(e.getMessage());
+		}
+		
 		return "redirect:/viewCommunes";
 	}
 	@RequestMapping(value = "/saveCommune", method = RequestMethod.GET)
@@ -78,4 +99,20 @@ public class CommuneController {
 		return "commune";
 	}
 	
+	public Ville findVilleByName(String ville)
+	{
+		List<Ville> villes = villeService.consulterVilles();
+		Ville Ville = new Ville();
+		for (int i = 0; i < villes.size(); i++)
+		{
+			Ville V = new Ville();
+			V = villes.get(i);
+			
+			if (V.getLibelleVille().equals(ville))
+			{
+				Ville = V;
+			}
+		}
+		return Ville;
+	}
 }

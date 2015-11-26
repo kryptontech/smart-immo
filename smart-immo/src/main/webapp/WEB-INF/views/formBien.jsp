@@ -85,7 +85,7 @@
             <div class="form-group col-md-12">
                 <label class="col-md-3 control-lable" for="libelleBien">Statut</label>
                 <div class="col-md-7">
-                    <select name="commune" class="form-control input-sm">
+                    <select name="ville" class="form-control input-sm">
                     <c:forEach items="" var="bien">
        					<option value="">Disponible</option>
        					<option value="">Indisponible</option>
@@ -112,18 +112,6 @@
             </div>
         </div>
         
-           <div class="row">
-            <div class="form-group col-md-12">
-                <label class="col-md-3 control-lable" for="nomFournisseur">Du fournisseur:</label>
-                <div class="col-md-7">
-                    <f:select path="fournisseur" items="${listFournisseur}">
-   					</f:select>
-                    <div class="has-error">
-                        <f:errors path="fournisseur" class="help-inline"/>
-                    </div>
-                </div>
-            </div>
-        </div>
         
         <div class="row">
             <div class="form-group col-md-12">
@@ -153,12 +141,12 @@
         
         <div class="row">
             <div class="form-group col-md-12">
-                <label class="col-md-3 control-lable" for="commune">Dans la Commune de:</label>
+                <label class="col-md-3 control-lable" for="ville">Dans la Ville de:</label>
                 <div class="col-md-7">
-                     <f:select path="commune" items="${listCommune}">
+                     <f:select path="ville" items="${listVille}">
    					</f:select>
                     <div class="has-error">
-                        <f:errors path="commune" class="help-inline"/>
+                        <f:errors path="ville" class="help-inline"/>
                     </div>
                 </div>
             </div>

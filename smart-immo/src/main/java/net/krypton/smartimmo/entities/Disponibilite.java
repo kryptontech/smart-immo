@@ -7,6 +7,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+
+import org.hibernate.validator.constraints.NotEmpty;
 @Entity
 public class Disponibilite implements Serializable {
 	
@@ -18,6 +20,7 @@ public class Disponibilite implements Serializable {
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	@Column(name="id_disponibilite")
 	private int idDisponibilite;
+	@NotEmpty
 	private String libelleDisponibilite;
 
 	
@@ -44,8 +47,9 @@ public class Disponibilite implements Serializable {
 	}
 	
 	@Override
-	public String toString() {
-		return getLibelleDisponibilite() ;
+	public String toString()
+	{
+		return getLibelleDisponibilite();
 	}
 	
 }

@@ -1,24 +1,32 @@
 package net.krypton.smartimmo.controller;
 
+import java.util.List;
 import java.util.Map;
 
 import javax.validation.Valid;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.ModelMap;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+
 import net.krypton.smartimmo.entities.Bien;
+import net.krypton.smartimmo.entities.Disponibilite;
+import net.krypton.smartimmo.entities.Fournisseur;
+import net.krypton.smartimmo.entities.SousCategorie;
+import net.krypton.smartimmo.entities.TypeOffre;
+import net.krypton.smartimmo.entities.Ville;
+import net.krypton.smartimmo.model.BienModel;
 import net.krypton.smartimmo.service.BienService;
 import net.krypton.smartimmo.service.DisponibiliteService;
 import net.krypton.smartimmo.service.FournisseurService;
 import net.krypton.smartimmo.service.SousCategorieService;
 import net.krypton.smartimmo.service.TypeOffreService;
 import net.krypton.smartimmo.service.VilleService;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.ModelMap;
-import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 
 
 @Controller
@@ -44,8 +52,49 @@ public class BienController {
 	DisponibiliteService disponibiliteService;
 	
 	@RequestMapping(value="/saveBien", method = RequestMethod.POST)
-	public String enregistrerBien(@Valid Bien v, BindingResult result, ModelMap model){
-		bienService.ajouterBien(v);
+	public String enregistrerBien(@Valid @ModelAttribute("v") BienModel v, BindingResult result, ModelMap model){
+		
+		if (result.hasErrors())
+		{
+			return "redirect:/viewBiens";
+		}
+		try{
+			Bien bien = new Bien();
+			bien.setDatePubBien(v.getDatePubBien());
+			bien.setDescriptionBien(v.getDescriptionBien());
+			bien.setNbPieceBien(v.getNbPieceBien());
+			bien.setPrixBien(v.getPrixBien());
+			bien.setQuartierBien(v.getQuartierBien());
+			bien.setStatutBien(v.isStatutBien());
+			bien.setSuperficieBien(v.getSuperficieBien());
+			bien.setTitreBien(v.getTitreBien());
+			
+			Fournisseur f = new Fournisseur();
+			f = findFournisseurByNom(v.getFournisseur());
+			bien.setFournisseur(f);
+			
+			Ville V = new Ville();
+			V = findVilleByName(v.getVille());
+			bien.setVille(V);
+			
+			TypeOffre T = new TypeOffre();
+			T = findTypeOffreByLibelle(v.getTypeoffre());
+			bien.setTypeoffre(T);
+			
+			Disponibilite D = new Disponibilite();
+			D = findDisponibiliteByLibelle(v.getDisponibilite());
+			bien.setDisponibilite(D);
+			
+			SousCategorie S = new SousCategorie();
+			S = findSousCategorieByLibelle(v.getSouscategorie());
+			bien.setSouscategorie(S);
+			
+			bienService.modifierBien(bien);
+			
+		}catch (Exception e){
+			
+			v.setException(e.getMessage());
+		}
 		return "redirect:/viewBiens";
 	}
 	@RequestMapping(value = "/saveBien", method = RequestMethod.GET)
@@ -106,5 +155,106 @@ public class BienController {
 		map.put("listDisponibilite", disponibiliteService.consulterDisponibilites());
 		map.put("listBien", bienService.consulterBiens());
 		return "bien";
+	}
+	
+	public Bien findBienByTitre(String titre)
+	{
+		List<Bien> biens = bienService.consulterBiens();
+		Bien bien = new Bien();
+		for (int i = 0; i < biens.size(); i++)
+		{
+			Bien b = new Bien();
+			b = biens.get(i);
+			 if (b.getTitreBien().equals(titre))
+			 {
+				 bien = b;
+			 }
+		}
+		return bien;
+	}
+	
+	public Ville findVilleByName(String ville)
+	{
+		List<Ville> villes = villeService.consulterVilles();
+		Ville Ville = new Ville();
+		for (int i = 0; i < villes.size(); i++)
+		{
+			Ville V = new Ville();
+			V = villes.get(i);
+			
+			if (V.getLibelleVille().equals(ville))
+			{
+				Ville = V;
+			}
+		}
+		return Ville;
+	}
+	
+	public TypeOffre findTypeOffreByLibelle(String tofre)
+	{
+		List<TypeOffre> TypeOffres = typeOffreService.consulterTypeOffres();
+		TypeOffre TypeOffre = new TypeOffre();
+		for (int i = 0; i < TypeOffres.size(); i++)
+		{
+			TypeOffre T = new TypeOffre();
+			T = TypeOffres.get(i);
+			
+			if (T.getLibelleTypeOffre().equals(tofre))
+			{
+				TypeOffre = T;
+			}
+		}
+		return TypeOffre;
+	}
+	
+	public SousCategorie findSousCategorieByLibelle(String scat)
+	{
+		List<SousCategorie> SousCategories = sousCategorieService.consulterSousCategories();
+		SousCategorie SousCategorie = new SousCategorie();
+		for (int i = 0; i < SousCategories.size(); i++)
+		{
+			SousCategorie S = new SousCategorie();
+			S = SousCategories.get(i);
+			
+			if (S.getLibelleSousCat().equals(scat))
+			{
+				SousCategorie = S;
+			}
+		}
+		return SousCategorie;
+	}
+	
+	public Fournisseur findFournisseurByNom(String nom)
+	{
+		List<Fournisseur> Fournisseurs = fournisseurService.consulterFournisseurs();
+		Fournisseur Fournisseur = new Fournisseur();
+		for (int i = 0; i < Fournisseurs.size(); i++)
+		{
+			Fournisseur F = new Fournisseur();
+			F = Fournisseurs.get(i);
+			
+			if (F.getNomFournisseur().equals(nom))
+			{
+				Fournisseur = F;
+			}
+		}
+		return Fournisseur;
+	}
+	
+	public Disponibilite findDisponibiliteByLibelle(String libDispo)
+	{
+		List<Disponibilite> disponibilites = disponibiliteService.consulterDisponibilites();
+		Disponibilite Disponibilite = new Disponibilite();
+		for (int i = 0; i < disponibilites.size(); i++)
+		{
+			Disponibilite D = new Disponibilite();
+			D = disponibilites.get(i);
+			
+			if (D.getLibelleDisponibilite().equals(libDispo))
+			{
+				Disponibilite = D;
+			}
+		}
+		return Disponibilite;
 	}
 }

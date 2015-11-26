@@ -57,9 +57,5 @@ public class Album implements Serializable {
 		// TODO Auto-generated constructor stub
 	}
 	
-	@Override
-	public String toString() {
-		return getPathAlbum() ;
-	}
 	
 }

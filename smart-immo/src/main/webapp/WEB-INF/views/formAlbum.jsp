@@ -5,14 +5,14 @@
 <div class="container">
  <div class="generic-container">
     <div class="well lead">ALBUM FORM</div>
-    <f:form method="POST" modelAttribute="formAlbum" class="form-horizontal">
+    <f:form method="POST" modelAttribute="formAlbum" class="form-horizontal" enctype = "multipart/form-data">
         <f:input type="hidden" path="idAlbum" id="idAlbum"/>
          
         <div class="row">
             <div class="form-group col-md-12">
                 <label class="col-md-3 control-lable" for="pathAlbum">Path Album</label>
                 <div class="col-md-7">
-                    <f:input type="file" path="pathAlbum" id="pathAlbum" class="form-control input-sm"/>
+                    <f:input name="files" type="file" path="pathAlbum" id="pathAlbum" class="form-control input-sm" multiple="true"/>
                     <div class="has-error">
                         <f:errors path="pathAlbum" class="help-inline"/>
                     </div>
