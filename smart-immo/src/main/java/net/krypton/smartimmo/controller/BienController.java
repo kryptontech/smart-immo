@@ -1,18 +1,10 @@
 package net.krypton.smartimmo.controller;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
 import javax.validation.Valid;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.ModelMap;
-import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 
 import net.krypton.smartimmo.entities.Bien;
 import net.krypton.smartimmo.entities.Disponibilite;
@@ -28,39 +20,64 @@ import net.krypton.smartimmo.service.SousCategorieService;
 import net.krypton.smartimmo.service.TypeOffreService;
 import net.krypton.smartimmo.service.VilleService;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.ModelMap;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 
 @Controller
-
 public class BienController {
 
 	@Autowired
 	BienService bienService;
-	
+
 	@Autowired
 	FournisseurService fournisseurService;
-	
+
 	@Autowired
 	TypeOffreService typeOffreService;
-	
+
 	@Autowired
 	VilleService villeService;
-	
+
 	@Autowired
 	SousCategorieService sousCategorieService;
-	
+
 	@Autowired
 	DisponibiliteService disponibiliteService;
-	
-	@RequestMapping(value="/saveBien", method = RequestMethod.POST)
-	public String enregistrerBien(@Valid @ModelAttribute("v") BienModel v, BindingResult result, ModelMap model){
-		
-		if (result.hasErrors())
-		{
-			return "redirect:/viewBiens";
+
+	@RequestMapping(value = "/saveBien", method = RequestMethod.POST)
+	public String enregistrerBien(@Valid @ModelAttribute("v") BienModel v,
+			BindingResult result, ModelMap model) {
+
+		if (result.hasErrors()) {
+			System.out.println("    ");
+			System.out.println(result.getFieldErrorCount());
+			System.out.println(result.getNestedPath());
+			System.out.println(result.getObjectName());
+			System.out.println(result.getFieldError());
+			System.out.println("    ");
+			
+			model.addAttribute("listFournisseur",
+					fournisseurService.consulterFournisseurs());
+			model.addAttribute("listTypeOffre",
+					typeOffreService.consulterTypeOffres());
+			model.addAttribute("listVille", villeService.consulterVilles());
+			model.addAttribute("listSousCategorie",
+					sousCategorieService.consulterSousCategories());
+			model.addAttribute("listDisponibilite",
+					disponibiliteService.consulterDisponibilites());
+			model.addAttribute("formBien", v);
+			model.addAttribute("edit", true);
+			return "formBien";
 		}
-		try{
+		try {
 			Bien bien = new Bien();
-			bien.setDatePubBien(v.getDatePubBien());
+			bien.setDatePubBien(new Date());
 			bien.setDescriptionBien(v.getDescriptionBien());
 			bien.setNbPieceBien(v.getNbPieceBien());
 			bien.setPrixBien(v.getPrixBien());
@@ -68,190 +85,185 @@ public class BienController {
 			bien.setStatutBien(v.isStatutBien());
 			bien.setSuperficieBien(v.getSuperficieBien());
 			bien.setTitreBien(v.getTitreBien());
-			
+
 			Fournisseur f = new Fournisseur();
 			f = findFournisseurByNom(v.getFournisseur());
 			bien.setFournisseur(f);
-			
+
 			Ville V = new Ville();
 			V = findVilleByName(v.getVille());
 			bien.setVille(V);
-			
+
 			TypeOffre T = new TypeOffre();
 			T = findTypeOffreByLibelle(v.getTypeoffre());
 			bien.setTypeoffre(T);
-			
+
 			Disponibilite D = new Disponibilite();
 			D = findDisponibiliteByLibelle(v.getDisponibilite());
 			bien.setDisponibilite(D);
-			
+
 			SousCategorie S = new SousCategorie();
 			S = findSousCategorieByLibelle(v.getSouscategorie());
 			bien.setSouscategorie(S);
-			
+
 			bienService.modifierBien(bien);
-			
-		}catch (Exception e){
-			
+
+		} catch (Exception e) {
+
 			v.setException(e.getMessage());
 		}
+
 		return "redirect:/viewBiens";
 	}
+
 	@RequestMapping(value = "/saveBien", method = RequestMethod.GET)
-	public String newBien(ModelMap model){
+	public String newBien(ModelMap model) {
 		Bien bien = new Bien();
-		
-		model.addAttribute("listFournisseur", fournisseurService.consulterFournisseurs());
-		model.addAttribute("listTypeOffre", typeOffreService.consulterTypeOffres());
+
+		model.addAttribute("listFournisseur",
+				fournisseurService.consulterFournisseurs());
+		model.addAttribute("listTypeOffre",
+				typeOffreService.consulterTypeOffres());
 		model.addAttribute("listVille", villeService.consulterVilles());
-		model.addAttribute("listSousCategorie", sousCategorieService.consulterSousCategories());
-		model.addAttribute("listDisponibilite", disponibiliteService.consulterDisponibilites());
+		model.addAttribute("listSousCategorie",
+				sousCategorieService.consulterSousCategories());
+		model.addAttribute("listDisponibilite",
+				disponibiliteService.consulterDisponibilites());
 		model.addAttribute("formBien", bien);
 		model.addAttribute("edit", false);
 		return "formBien";
 	}
-	
+
 	@RequestMapping(value = "/modifyBien-{idBien}", method = RequestMethod.GET)
-	public String editBien(@PathVariable int idBien, ModelMap model){
+	public String editBien(@PathVariable int idBien, ModelMap model) {
 		Bien bien = bienService.consulterBien(idBien);
-		
-		model.addAttribute("listFournisseur", fournisseurService.consulterFournisseurs());
-		model.addAttribute("listTypeOffre", typeOffreService.consulterTypeOffres());
+
+		model.addAttribute("listFournisseur",
+				fournisseurService.consulterFournisseurs());
+		model.addAttribute("listTypeOffre",
+				typeOffreService.consulterTypeOffres());
 		model.addAttribute("listVille", villeService.consulterVilles());
-		model.addAttribute("listSousCategorie", sousCategorieService.consulterSousCategories());
-		model.addAttribute("listDisponibilite", disponibiliteService.consulterDisponibilites());
+		model.addAttribute("listSousCategorie",
+				sousCategorieService.consulterSousCategories());
+		model.addAttribute("listDisponibilite",
+				disponibiliteService.consulterDisponibilites());
 		model.addAttribute("formBien", bien);
 		model.addAttribute("edit", true);
 		return "formBien";
 	}
+
 	@RequestMapping(value = "/modifyBien-{idBien}", method = RequestMethod.POST)
-	public String modifierBien(@Valid Bien v, BindingResult result, ModelMap model, @PathVariable int idBien){
+	public String modifierBien(@Valid Bien v, BindingResult result,
+			ModelMap model, @PathVariable int idBien) {
 		bienService.modifierBien(v);
 		return "redirect:/viewBiens";
 	}
-	
+
 	@RequestMapping(value = "/deleteBien-{idBien}")
-	public String supprimerBien(@PathVariable int idBien){
-		
+	public String supprimerBien(@PathVariable int idBien) {
+
 		bienService.supprimerBien(idBien);
 		return "redirect:/viewBiens";
 	}
-	
-	
+
 	@RequestMapping("/viewBien")
-	public Bien consulterBien(int idBien)
-	{
+	public Bien consulterBien(int idBien) {
 		return bienService.consulterBien(idBien);
 	}
 
-
-	@RequestMapping(value="/viewBiens")
-	public String consulterBiens(Map<String, Object> map)
-	{
+	@RequestMapping(value = "/viewBiens")
+	public String consulterBiens(Map<String, Object> map) {
 		map.put("listFournisseur", fournisseurService.consulterFournisseurs());
 		map.put("listTypeOffre", typeOffreService.consulterTypeOffres());
 		map.put("listVille", villeService.consulterVilles());
-		map.put("listSousCategorie", sousCategorieService.consulterSousCategories());
-		map.put("listDisponibilite", disponibiliteService.consulterDisponibilites());
+		map.put("listSousCategorie",
+				sousCategorieService.consulterSousCategories());
+		map.put("listDisponibilite",
+				disponibiliteService.consulterDisponibilites());
 		map.put("listBien", bienService.consulterBiens());
 		return "bien";
 	}
-	
-	public Bien findBienByTitre(String titre)
-	{
+
+	public Bien findBienByTitre(String titre) {
 		List<Bien> biens = bienService.consulterBiens();
 		Bien bien = new Bien();
-		for (int i = 0; i < biens.size(); i++)
-		{
+		for (int i = 0; i < biens.size(); i++) {
 			Bien b = new Bien();
 			b = biens.get(i);
-			 if (b.getTitreBien().equals(titre))
-			 {
-				 bien = b;
-			 }
+			if (b.getTitreBien().equals(titre)) {
+				bien = b;
+			}
 		}
 		return bien;
 	}
-	
-	public Ville findVilleByName(String ville)
-	{
+
+	public Ville findVilleByName(String ville) {
 		List<Ville> villes = villeService.consulterVilles();
 		Ville Ville = new Ville();
-		for (int i = 0; i < villes.size(); i++)
-		{
+		for (int i = 0; i < villes.size(); i++) {
 			Ville V = new Ville();
 			V = villes.get(i);
-			
-			if (V.getLibelleVille().equals(ville))
-			{
+
+			if (V.getLibelleVille().equals(ville)) {
 				Ville = V;
 			}
 		}
 		return Ville;
 	}
-	
-	public TypeOffre findTypeOffreByLibelle(String tofre)
-	{
+
+	public TypeOffre findTypeOffreByLibelle(String tofre) {
 		List<TypeOffre> TypeOffres = typeOffreService.consulterTypeOffres();
 		TypeOffre TypeOffre = new TypeOffre();
-		for (int i = 0; i < TypeOffres.size(); i++)
-		{
+		for (int i = 0; i < TypeOffres.size(); i++) {
 			TypeOffre T = new TypeOffre();
 			T = TypeOffres.get(i);
-			
-			if (T.getLibelleTypeOffre().equals(tofre))
-			{
+
+			if (T.getLibelleTypeOffre().equals(tofre)) {
 				TypeOffre = T;
 			}
 		}
 		return TypeOffre;
 	}
-	
-	public SousCategorie findSousCategorieByLibelle(String scat)
-	{
-		List<SousCategorie> SousCategories = sousCategorieService.consulterSousCategories();
+
+	public SousCategorie findSousCategorieByLibelle(String scat) {
+		List<SousCategorie> SousCategories = sousCategorieService
+				.consulterSousCategories();
 		SousCategorie SousCategorie = new SousCategorie();
-		for (int i = 0; i < SousCategories.size(); i++)
-		{
+		for (int i = 0; i < SousCategories.size(); i++) {
 			SousCategorie S = new SousCategorie();
 			S = SousCategories.get(i);
-			
-			if (S.getLibelleSousCat().equals(scat))
-			{
+
+			if (S.getLibelleSousCat().equals(scat)) {
 				SousCategorie = S;
 			}
 		}
 		return SousCategorie;
 	}
-	
-	public Fournisseur findFournisseurByNom(String nom)
-	{
-		List<Fournisseur> Fournisseurs = fournisseurService.consulterFournisseurs();
+
+	public Fournisseur findFournisseurByNom(String nom) {
+		List<Fournisseur> Fournisseurs = fournisseurService
+				.consulterFournisseurs();
 		Fournisseur Fournisseur = new Fournisseur();
-		for (int i = 0; i < Fournisseurs.size(); i++)
-		{
+		for (int i = 0; i < Fournisseurs.size(); i++) {
 			Fournisseur F = new Fournisseur();
 			F = Fournisseurs.get(i);
-			
-			if (F.getNomFournisseur().equals(nom))
-			{
+
+			if (F.getNomFournisseur().equals(nom)) {
 				Fournisseur = F;
 			}
 		}
 		return Fournisseur;
 	}
-	
-	public Disponibilite findDisponibiliteByLibelle(String libDispo)
-	{
-		List<Disponibilite> disponibilites = disponibiliteService.consulterDisponibilites();
+
+	public Disponibilite findDisponibiliteByLibelle(String libDispo) {
+		List<Disponibilite> disponibilites = disponibiliteService
+				.consulterDisponibilites();
 		Disponibilite Disponibilite = new Disponibilite();
-		for (int i = 0; i < disponibilites.size(); i++)
-		{
+		for (int i = 0; i < disponibilites.size(); i++) {
 			Disponibilite D = new Disponibilite();
 			D = disponibilites.get(i);
-			
-			if (D.getLibelleDisponibilite().equals(libDispo))
-			{
+
+			if (D.getLibelleDisponibilite().equals(libDispo)) {
 				Disponibilite = D;
 			}
 		}

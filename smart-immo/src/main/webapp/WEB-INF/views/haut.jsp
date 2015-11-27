@@ -64,7 +64,7 @@
 				<div class="nav-no-collapse header-nav">
 					<ul class="nav pull-right">
 
-						<li class="dropdown hidden-phone"><a
+						<li class="dropdown hidden-phone" style="display: none"><a
 							class="btn dropdown-toggle" data-toggle="dropdown"
 							title="Nouveaux fournisseurs"
 							href="<c:url value='/viewFournisseurs' />"> <i
@@ -74,7 +74,7 @@
 						<!-- end: Notification: nouveau fournisseur-->
 
 						<!--start: Notification bien en attente-->
-						<li class="dropdown hidden-phone"><a
+						<li class="dropdown hidden-phone" style="display: none"><a
 							class="btn dropdown-toggle" data-toggle="dropdown"
 							href="<c:url value='/viewBiens' />" title="Biens en attentes">
 								<i class="glyphicons-icon cart_in white"></i> <span
@@ -84,7 +84,7 @@
 						<!-- end: Notifications nouveaux biens -->
 
 						<!-- start: Notifications biens obseletes -->
-						<li class="dropdown hidden-phone"><a
+						<li class="dropdown hidden-phone" style="display: none"><a
 							class="btn dropdown-toggle" data-toggle="dropdown"
 							href="<c:url value='/viewBiens' />" title="Biens obseletes">
 								<i class="glyphicons-icon cart_out white"></i> <span
@@ -94,7 +94,7 @@
 						<!-- end: Notiifcation biens obseletes -->
 
 						<!-- start: Message Dropdown -->
-						<li class="dropdown hidden-phone"><a
+						<li class="dropdown hidden-phone" style="display: none"><a
 							class="btn dropdown-toggle" data-toggle="dropdown"
 							href="<c:url value='/viewClients' />" title="Newsletters"> <i
 								class="glyphicons-icon message_plus white"></i> <span

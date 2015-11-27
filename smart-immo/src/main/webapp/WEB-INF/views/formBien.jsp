@@ -22,9 +22,9 @@
         
         <div class="row">
             <div class="form-group col-md-12">
-                <label class="col-md-3 control-lable" for="superficieBien">Superficie du Bien</label>
+                <label class="col-md-3 control-lable" for="superficieBien">Superficie du Bien (m2)</label>
                 <div class="col-md-7">
-                    <f:input type="text" path="superficieBien" id="superficieBien" class="form-control input-sm"/>
+                    <f:input type="number" path="superficieBien" id="superficieBien" class="form-control input-sm"/>
                     <div class="has-error">
                         <f:errors path="superficieBien" class="help-inline"/>
                     </div>
@@ -36,7 +36,7 @@
             <div class="form-group col-md-12">
                 <label class="col-md-3 control-lable" for="prixBien">Prix du Bien</label>
                 <div class="col-md-7">
-                    <f:input type="text" path="prixBien" id="prixBien" class="form-control input-sm"/>
+                    <f:input type="number" path="prixBien" id="prixBien" class="form-control input-sm"/>
                     <div class="has-error">
                         <f:errors path="prixBien" class="help-inline"/>
                     </div>
@@ -72,7 +72,7 @@
             <div class="form-group col-md-12">
                 <label class="col-md-3 control-lable" for="nbPieceBien">Nombre de pièces</label>
                 <div class="col-md-7">
-                    <f:input type="text" path="nbPieceBien" id="nbPieceBien" class="form-control input-sm"/>
+                    <f:input type="number" path="nbPieceBien" id="nbPieceBien" class="form-control input-sm"/>
                     <div class="has-error">
                         <f:errors path="nbPieceBien" class="help-inline"/>
                     </div>
@@ -87,12 +87,12 @@
                 <div class="col-md-7">
                     <select name="ville" class="form-control input-sm">
                     <c:forEach items="" var="bien">
-       					<option value="">Disponible</option>
-       					<option value="">Indisponible</option>
+       					<option value="Disponible">Disponible</option>
+       					<option value="Indisponible">Indisponible</option>
    					</c:forEach>
    					</select>
                     <div class="has-error">
-                        <f:errors path="ville.libelleVille" class="help-inline"/>
+                        <f:errors path="disponibilite" class="help-inline"/>
                     </div>
                 </div>
             </div>
@@ -100,17 +100,7 @@
         
         
         
-        <div class="row">
-            <div class="form-group col-md-12">
-                <label class="col-md-3 control-lable" for="datePubBien">Date</label>
-                <div class="col-md-7">
-                    <f:input type="text" path="datePubBien" id="datePubBien" class="form-control input-sm"/>
-                    <div class="has-error">
-                        <f:errors path="datePubBien" class="help-inline"/>
-                    </div>
-                </div>
-            </div>
-        </div>
+      
         
         
         <div class="row">

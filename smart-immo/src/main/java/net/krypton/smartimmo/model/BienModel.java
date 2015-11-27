@@ -2,6 +2,7 @@ package net.krypton.smartimmo.model;
 
 import java.util.Date;
 
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 import org.hibernate.validator.constraints.NotEmpty;
@@ -13,9 +14,9 @@ public class BienModel {
 	@NotEmpty
 	@Size(min= 10)
 	private String titreBien;
-	@NotEmpty
+	@NotNull
 	private double superficieBien;
-	@NotEmpty
+	@NotNull
 	private double prixBien;
 	@NotEmpty
 	private String quartierBien;
@@ -23,10 +24,10 @@ public class BienModel {
 	@Size(min=15)
 	private String descriptionBien;
 	
-	@NotEmpty
+	@NotNull
 	private int nbPieceBien;
 	private boolean statutBien;
-	@NotEmpty
+
 	private Date datePubBien;
 	
 	@NotEmpty
@@ -35,7 +36,7 @@ public class BienModel {
 	@NotEmpty
 	private String Ville;
 
-	@NotEmpty
+	
 	private String disponibilite;
 	
 	@NotEmpty

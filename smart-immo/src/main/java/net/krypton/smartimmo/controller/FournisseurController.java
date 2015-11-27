@@ -5,6 +5,10 @@ import java.util.Map;
 
 import javax.validation.Valid;
 
+import net.krypton.smartimmo.entities.Fournisseur;
+import net.krypton.smartimmo.model.Test;
+import net.krypton.smartimmo.service.FournisseurService;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -13,17 +17,17 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-import net.krypton.smartimmo.entities.Fournisseur;
-import net.krypton.smartimmo.service.FournisseurService;
-
 @Controller
 public class FournisseurController {
 
 	@Autowired
 	FournisseurService fournisseurService;
 	
+	Test Test = new Test();
+	
 	@RequestMapping(value="/saveFournisseur", method = RequestMethod.POST)
 	public String enregistrerFournisseur(@Valid Fournisseur v, BindingResult result, ModelMap model){
+		v.setMdpFournisseur(Test.md5(v.getMdpFournisseur()));
 		fournisseurService.ajouterFournisseur(v);
 		return "redirect:/viewFournisseurs";
 	}
@@ -37,6 +41,7 @@ public class FournisseurController {
 	
 	@RequestMapping(value = "/modifyFournisseur-{idFournisseur}", method = RequestMethod.GET)
 	public String editFournisseur(@PathVariable int idFournisseur, ModelMap model){
+		
 		Fournisseur fournisseur = fournisseurService.consulterFournisseur(idFournisseur);
 		model.addAttribute("formFournisseur", fournisseur);
 		model.addAttribute("edit", true);
@@ -44,6 +49,7 @@ public class FournisseurController {
 	}
 	@RequestMapping(value = "/modifyFournisseur-{idFournisseur}", method = RequestMethod.POST)
 	public String modifierFournisseur(@Valid Fournisseur v, BindingResult result, ModelMap model, @PathVariable int idFournisseur){
+		v.setMdpFournisseur(Test.md5(v.getMdpFournisseur()));
 		fournisseurService.modifierFournisseur(v);
 		return "redirect:/viewFournisseurs";
 	}

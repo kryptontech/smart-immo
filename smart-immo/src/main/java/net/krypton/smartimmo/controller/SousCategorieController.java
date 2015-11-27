@@ -27,104 +27,112 @@ public class SousCategorieController {
 	SousCategorieService sousCategorieService;
 	@Autowired
 	CategorieService categorieService;
-	
-	@RequestMapping(value="/saveSousCategorie", method = RequestMethod.POST)
-	public String enregistrerSousCategorie(@Valid @ModelAttribute("v") SousCategorieModel v, BindingResult result, ModelMap model){
-		if (result.hasErrors())
-		{
+
+	@RequestMapping(value = "/saveSousCategorie", method = RequestMethod.POST)
+	public String enregistrerSousCategorie(
+			@Valid @ModelAttribute("v") SousCategorieModel v,
+			BindingResult result, ModelMap model) {
+		if (result.hasErrors()) {
 			return "redirect:/viewSousCategories";
 		}
-		try{
+		try {
 			SousCategorie sc = new SousCategorie();
-			
+
 			sc.setLibelleSousCat(v.getLibelleSousCat());
 			Categorie c = new Categorie();
-			
+
 			c = findCategorieByName(v.getCategorie());
 			sc.setCategorie(c);
 			sousCategorieService.modifierSousCategorie(sc);
-		}catch (Exception e){
-			
+		} catch (Exception e) {
+
 			v.setException(e.getMessage());
 		}
-		
-		
+
 		return "redirect:/viewSousCategories";
 	}
+
 	@RequestMapping(value = "/saveSousCategorie", method = RequestMethod.GET)
-	public String newSousCategorie(ModelMap model){
+	public String newSousCategorie(ModelMap model) {
 		SousCategorie sousCategorie = new SousCategorie();
-		
-		model.addAttribute("listCategorie", categorieService.consulterCategories());
+
+		model.addAttribute("listCategorie",
+				categorieService.consulterCategories());
 		model.addAttribute("formSousCategorie", sousCategorie);
 		model.addAttribute("edit", false);
 		return "formSousCategorie";
 	}
-	
+
 	@RequestMapping(value = "/modifySousCategorie-{idSousCategorie}", method = RequestMethod.GET)
-	public String editSousCategorie(@PathVariable int idSousCategorie, ModelMap model){
-		SousCategorie sousCategorie = sousCategorieService.consulterSousCategorie(idSousCategorie);
-		
-		model.addAttribute("listCategorie", categorieService.consulterCategories());
+	public String editSousCategorie(@PathVariable int idSousCategorie,
+			ModelMap model) {
+		SousCategorie sousCategorie = sousCategorieService
+				.consulterSousCategorie(idSousCategorie);
+
+		model.addAttribute("listCategorie",
+				categorieService.consulterCategories());
 		model.addAttribute("formSousCategorie", sousCategorie);
 		model.addAttribute("edit", true);
 		return "formSousCategorie";
 	}
+
 	@RequestMapping(value = "/modifySousCategorie-{idSousCategorie}", method = RequestMethod.POST)
-	public String modifierSousCategorie(@Valid SousCategorie v, BindingResult result, ModelMap model, @PathVariable int idSousCategorie){
+	public String modifierSousCategorie(@Valid SousCategorie v,
+			BindingResult result, ModelMap model,
+			@PathVariable int idSousCategorie) {
 		sousCategorieService.modifierSousCategorie(v);
 		return "redirect:/viewSousCategories";
 	}
-	
+
 	@RequestMapping(value = "/deleteSousCategorie-{idSousCategorie}")
-	public String supprimerSousCategorie(@PathVariable int idSousCategorie){
-		
-		sousCategorieService.supprimerSousCategorie(idSousCategorie);
-		return "redirect:/viewSousCategories";
+	public String supprimerSousCategorie(@PathVariable int idSousCategorie) {
+
+		try {
+
+			sousCategorieService.supprimerSousCategorie(idSousCategorie);
+			return "redirect:/viewSousCategories";
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+			return "redirect:/viewSousCategories";
+		}
 	}
-	
+
 	@RequestMapping("/viewSousCategorie")
-	public SousCategorie consulterSousCategorie(int idSousCategorie)
-	{
+	public SousCategorie consulterSousCategorie(int idSousCategorie) {
 		return sousCategorieService.consulterSousCategorie(idSousCategorie);
 	}
-	
-	@RequestMapping(value="/viewSousCategories")
-	public String consulterSousCategories(Map<String, Object> map)
-	{
+
+	@RequestMapping(value = "/viewSousCategories")
+	public String consulterSousCategories(Map<String, Object> map) {
 		map.put("listCategorie", categorieService.consulterCategories());
-		map.put("listSousCategorie", sousCategorieService.consulterSousCategories());
+		map.put("listSousCategorie",
+				sousCategorieService.consulterSousCategories());
 		return "souscategorie";
 	}
-	
-	public Categorie findCategorieByName(String categorie)
-	{
+
+	public Categorie findCategorieByName(String categorie) {
 		List<Categorie> cats = categorieService.consulterCategories();
 		Categorie cat = new Categorie();
-		for (int i=0; i < cats.size(); i++)
-		{
+		for (int i = 0; i < cats.size(); i++) {
 			Categorie cate = new Categorie();
 			cate = cats.get(i);
-			
-			if (cate.getLibelleCategorie().equals(categorie))
-			{
+
+			if (cate.getLibelleCategorie().equals(categorie)) {
 				cat = cate;
 			}
 		}
 		return cat;
 	}
-	
-	public SousCategorie findSousCategorieByLibelle(String scat)
-	{
-		List<SousCategorie> SousCategories = sousCategorieService.consulterSousCategories();
+
+	public SousCategorie findSousCategorieByLibelle(String scat) {
+		List<SousCategorie> SousCategories = sousCategorieService
+				.consulterSousCategories();
 		SousCategorie SousCategorie = new SousCategorie();
-		for (int i = 0; i < SousCategories.size(); i++)
-		{
+		for (int i = 0; i < SousCategories.size(); i++) {
 			SousCategorie S = new SousCategorie();
 			S = SousCategories.get(i);
-			
-			if (S.getLibelleSousCat().equals(scat))
-			{
+
+			if (S.getLibelleSousCat().equals(scat)) {
 				SousCategorie = S;
 			}
 		}

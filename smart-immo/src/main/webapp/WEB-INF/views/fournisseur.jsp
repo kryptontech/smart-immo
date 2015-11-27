@@ -33,8 +33,8 @@
 								  <th>Nom</th>
 								 
 								  <th>Email</th>
-								  <th>Mot de Passe</th>
-								  <th>Statut</th>
+								  <th style="display: none">Mot de Passe</th>
+								  <th > Statut</th>
 								  <th>Telephone Fixe</th>
 								  <th>Telephone Mobile</th>
 								  <th>Actions</th>
@@ -51,7 +51,7 @@
        						 <td>${fournisseur.nomFournisseur}</td>
        						
        						 <td>${fournisseur.emailFournisseur}</td>
-       						 <td>${fournisseur.mdpFournisseur}</td>
+       						 <td style="display: none">${fournisseur.mdpFournisseur}</td>
        						 <td>${fournisseur.statuFournisseur}</td>
        						 <td>${fournisseur.telFixeFournisseur}</td>
        						 <td>${fournisseur.telMobileFournisseur}</td>
