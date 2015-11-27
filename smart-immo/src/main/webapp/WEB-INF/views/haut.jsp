@@ -1,4 +1,3 @@
-<%@ include file="includes.jsp"%>
 <!DOCTYPE html>
 <html lang="fr">
 <head>
@@ -153,7 +152,7 @@
 								<li><a class="submenu" href="<c:url value='/viewBiens' />"><i
 										class="icon-file-alt"></i><span class="hidden-tablet">BIEN</span></a></li>
 								<li><a class="submenu"
-									href="<c:url value='/viewCategories' />"><i
+									href="<c:url value='/viewCategories'/>"><i 
 										class="icon-file-alt"></i><span class="hidden-tablet">CATEGORIE</span></a></li>
 								<li><a class="submenu"
 									href="<c:url value='/viewDisponibilites' />"><i

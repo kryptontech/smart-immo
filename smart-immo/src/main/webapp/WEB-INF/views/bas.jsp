@@ -1,3 +1,11 @@
+<footer>
+
+		<p>
+
+		</p>
+
+	</footer>
+	
 	<!-- start: JavaScript-->
 
 		<script src="resources/js/jquery-1.9.1.min.js"></script>

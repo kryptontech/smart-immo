@@ -1,4 +1,3 @@
-<%@ include file="includes.jsp"%>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -17,10 +16,10 @@
 <!-- end: Mobile Specific -->
 
 <!-- start: CSS -->
-<link id="bootstrap-style" href="css/bootstrap.min.css" rel="stylesheet">
-<link href="css/bootstrap-responsive.min.css" rel="stylesheet">
-<link id="base-style" href="css/style.css" rel="stylesheet">
-<link id="base-style-responsive" href="css/style-responsive.css"
+<link id="bootstrap-style" href="resources/css/bootstrap.min.css" rel="stylesheet">
+<link href="resources/css/bootstrap-responsive.min.css" rel="stylesheet">
+<link id="base-style" href="resources/css/style.css" rel="stylesheet">
+<link id="base-style-responsive" href="resources/css/style-responsive.css"
 	rel="stylesheet">
 <link
 	href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800&subset=latin,cyrillic-ext,latin-ext'
@@ -31,20 +30,20 @@
 <!-- The HTML5 shim, for IE6-8 support of HTML5 elements -->
 <!--[if lt IE 9]>
 	  	<script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
-		<link id="ie-style" href="css/ie.css" rel="stylesheet">
+		<link id="ie-style" href="resources/css/ie.css" rel="stylesheet">
 	<![endif]-->
 
 <!--[if IE 9]>
-		<link id="ie9style" href="css/ie9.css" rel="stylesheet">
+		<link id="ie9style" href="resources/css/ie9.css" rel="stylesheet">
 	<![endif]-->
 
 <!-- start: Favicon -->
-<link rel="shortcut icon" href="img/favicon.ico">
+<link rel="shortcut icon" href="resources/img/favicon.ico">
 <!-- end: Favicon -->
 
 <style type="text/css">
 body {
-	background: url(/resources/img/bg-login.jpg) !important;
+	background: url("resources/img/bg-login.jpg") !important;
 	
 }
 </style>
@@ -63,7 +62,7 @@ body {
 						<a href="index.html"><i class="halflings-icon home"></i></a> <a
 							href="#"><i class="halflings-icon cog"></i></a>
 					</div>
-					<h2>Login to your account</h2>
+					<h2>Se connecter</h2>
 					<form action="j_spring_security_check" class="form-horizontal"
 						action="index.html" method="post">
 						<fieldset>
@@ -85,10 +84,10 @@ body {
 							<div class="clearfix"></div>
 
 							<label class="remember" for="remember"><input
-								type="checkbox" id="remember" />Remember me</label>
+								type="checkbox" id="remember" />Se souvenir</label>
 
 							<div class="button-login">
-								<button type="submit" class="btn btn-primary">Login</button>
+								<button type="submit" class="btn btn-primary">Se connecter</button>
 							</div>
 							<div class="clearfix"></div>
 					</form>
@@ -123,60 +122,60 @@ body {
 	</div>
 	<!-- start: JavaScript-->
 
-	<script src="js/jquery-1.9.1.min.js"></script>
-	<script src="js/jquery-migrate-1.0.0.min.js"></script>
+	<script src="resources/js/jquery-1.9.1.min.js"></script>
+	<script src="resources/js/jquery-migrate-1.0.0.min.js"></script>
 
-	<script src="js/jquery-ui-1.10.0.custom.min.js"></script>
+	<script src="resources/js/jquery-ui-1.10.0.custom.min.js"></script>
 
-	<script src="js/jquery.ui.touch-punch.js"></script>
+	<script src="resources/js/jquery.ui.touch-punch.js"></script>
 
-	<script src="js/modernizr.js"></script>
+	<script src="resources/js/modernizr.js"></script>
 
-	<script src="js/bootstrap.min.js"></script>
+	<script src="resources/js/bootstrap.min.js"></script>
 
-	<script src="js/jquery.cookie.js"></script>
+	<script src="resources/js/jquery.cookie.js"></script>
 
-	<script src='js/fullcalendar.min.js'></script>
+	<script src='resources/js/fullcalendar.min.js'></script>
 
-	<script src='js/jquery.dataTables.min.js'></script>
+	<script src='resources/js/jquery.dataTables.min.js'></script>
 
-	<script src="js/excanvas.js"></script>
-	<script src="js/jquery.flot.js"></script>
-	<script src="js/jquery.flot.pie.js"></script>
-	<script src="js/jquery.flot.stack.js"></script>
-	<script src="js/jquery.flot.resize.min.js"></script>
+	<script src="resources/js/excanvas.js"></script>
+	<script src="resources/js/jquery.flot.js"></script>
+	<script src="resources/js/jquery.flot.pie.js"></script>
+	<script src="resources/js/jquery.flot.stack.js"></script>
+	<script src="resources/js/jquery.flot.resize.min.js"></script>
 
-	<script src="js/jquery.chosen.min.js"></script>
+	<script src="resources/js/jquery.chosen.min.js"></script>
 
-	<script src="js/jquery.uniform.min.js"></script>
+	<script src="resources/js/jquery.uniform.min.js"></script>
 
-	<script src="js/jquery.cleditor.min.js"></script>
+	<script src="resources/js/jquery.cleditor.min.js"></script>
 
-	<script src="js/jquery.noty.js"></script>
+	<script src="resources/js/jquery.noty.js"></script>
 
-	<script src="js/jquery.elfinder.min.js"></script>
+	<script src="resources/js/jquery.elfinder.min.js"></script>
 
-	<script src="js/jquery.raty.min.js"></script>
+	<script src="resources/js/jquery.raty.min.js"></script>
 
-	<script src="js/jquery.iphone.toggle.js"></script>
+	<script src="resources/js/jquery.iphone.toggle.js"></script>
 
-	<script src="js/jquery.uploadify-3.1.min.js"></script>
+	<script src="resources/js/jquery.uploadify-3.1.min.js"></script>
 
-	<script src="js/jquery.gritter.min.js"></script>
+	<script src="resources/js/jquery.gritter.min.js"></script>
 
-	<script src="js/jquery.imagesloaded.js"></script>
+	<script src="resources/js/jquery.imagesloaded.js"></script>
 
-	<script src="js/jquery.masonry.min.js"></script>
+	<script src="resources/js/jquery.masonry.min.js"></script>
 
-	<script src="js/jquery.knob.modified.js"></script>
+	<script src="resources/js/jquery.knob.modified.js"></script>
 
-	<script src="js/jquery.sparkline.min.js"></script>
+	<script src="resources/js/jquery.sparkline.min.js"></script>
 
-	<script src="js/counter.js"></script>
+	<script src="resources/js/counter.js"></script>
 
-	<script src="js/retina.js"></script>
+	<script src="resources/js/retina.js"></script>
 
-	<script src="js/custom.js"></script>
+	<script src="resources/js/custom.js"></script>
 	<!-- end: JavaScript-->
 
 </body>
