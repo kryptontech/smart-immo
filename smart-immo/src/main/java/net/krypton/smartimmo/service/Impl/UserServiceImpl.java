@@ -50,4 +50,10 @@ public class UserServiceImpl implements UserService {
 		return dao.consulterUsers();
 	}
 
+	@Override
+	public User consulterUserByName(String User) {
+		// TODO Auto-generated method stub
+		return dao.consulterUserByName(User);
+	}
+
 }

@@ -26,6 +26,8 @@ public class Admin implements Serializable{
 	@NotEmpty
 	private String typeUser;
 	
+	private boolean status;
+	
 
 	public Admin(String typeUser) {
 		super();
@@ -48,6 +50,15 @@ public class Admin implements Serializable{
 		this.typeUser = typeUser;
 	}
 
+
+
+	public boolean isStatus() {
+		return status;
+	}
+
+	public void setStatus(boolean status) {
+		this.status = status;
+	}
 
 	public Admin() {
 		super();

@@ -10,5 +10,6 @@ public interface UserDao {
 	public User modifierUser(User m);
 	public void supprimerUser (int idUser);
 	public User consulterUser(int idUser);
+	public User consulterUserByName(String User);
 	public List<User> consulterUsers();
 }

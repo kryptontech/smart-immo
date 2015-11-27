@@ -7,7 +7,7 @@
 		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-3.1.xsd">
 
 	<context:component-scan base-package="net.krypton.smartimmo" />
-	
+
 
 	<bean id="admin_dao" class="net.krypton.smartimmo.dao.impl.AdminDaoImpl">
 	</bean>
@@ -46,7 +46,7 @@
 
 
 
-	
+
 
 	<bean id="client_dao" class="net.krypton.smartimmo.dao.impl.ClientDaoImpl">
 	</bean>
@@ -118,7 +118,7 @@
 		<property name="dao" ref="ville_dao"></property>
 	</bean>
 
-	
+
 
 
 	<bean id="dataSource"
@@ -126,7 +126,7 @@
 		<property name="driverClassName" value="com.mysql.jdbc.Driver"></property>
 		<property name="url" value="jdbc:mysql://localhost:3306/smartimmo"></property>
 		<property name="username" value="root"></property>
-		<property name="password" value=""></property>
+		<property name="password" value="jason"></property>
 	</bean>
 
 
@@ -165,14 +165,17 @@
 	</context:annotation-config>
 
 
+	
+
 
 
 	<!-- Spring Internationalizations -->
 
-	<bean id="messageSource"
-		class="org.springframework.context.support.ReloadableResourceBundleMessageSource">
-		<property name="basename" value="classpath:messages" />
-		<property name="defaultEncoding" value="UTF-8" />
+	<bean id="
+			messageSource "
+			class="org.springframework.context.support.ReloadableResourceBundleMessageSource">
+			<property name="basename" value="WEB-INF/mess/messages" ></property>
+			<property name="defaultEncoding" value="UTF-8" />
 	</bean>
 
 	<bean id="localeResolver"

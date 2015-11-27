@@ -9,9 +9,8 @@ import javax.persistence.Query;
 import net.krypton.smartimmo.dao.UserDao;
 import net.krypton.smartimmo.entities.User;
 
-
 public class UserDaoImpl implements UserDao {
-	
+
 	@PersistenceContext
 	private EntityManager em;
 
@@ -22,34 +21,39 @@ public class UserDaoImpl implements UserDao {
 	}
 
 	@Override
-	public User modifierUser(User m)
-	{
+	public User modifierUser(User m) {
 		em.merge(m);
 		return m;
 	}
-	
+
 	@Override
-	public void supprimerUser (int idUser)
-	{
+	public void supprimerUser(int idUser) {
 		User User = em.find(User.class, idUser);
 		em.remove(User);
-		
+
 	}
-	
+
 	@Override
-	public User consulterUser(int idUser)
-	{
+	public User consulterUser(int idUser) {
 		Query req = em.createQuery("From User where idUser=?1");
 		req.setParameter(1, idUser);
 		User Users = (User) req.getSingleResult();
 		return Users;
 	}
-	
+
 	@Override
-	public List<User> consulterUsers()
-	{
+	public List<User> consulterUsers() {
 		Query req = em.createQuery("select a From User a");
 		List<User> listUsers = req.getResultList();
 		return listUsers;
+	}
+
+	@Override
+	public User consulterUserByName(String User) {
+		Query req = em.createQuery("From User where nomUser=?1");
+		req.setParameter(1, User);
+		User Users = (User) req.getSingleResult();
+		return Users;
+
 	}
 }

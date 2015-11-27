@@ -22,6 +22,12 @@ public class AdminController {
 	@Autowired
 	AdminService adminService;
 	
+	@RequestMapping(value="/login", method = RequestMethod.GET)
+	public String login( ModelMap model){
+		
+		return "login";
+	}
+	
 	@RequestMapping(value="/saveAdmin", method = RequestMethod.POST)
 	public String enregistrerAdmin(@Valid Admin a, BindingResult result, ModelMap model){
 		adminService.ajouterAdmin(a);
