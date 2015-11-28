@@ -61,7 +61,7 @@ public class BienController {
 			System.out.println(result.getObjectName());
 			System.out.println(result.getFieldError());
 			System.out.println("    ");
-			
+
 			model.addAttribute("listFournisseur",
 					fournisseurService.consulterFournisseurs());
 			model.addAttribute("listTypeOffre",
@@ -162,8 +162,14 @@ public class BienController {
 	@RequestMapping(value = "/deleteBien-{idBien}")
 	public String supprimerBien(@PathVariable int idBien) {
 
-		bienService.supprimerBien(idBien);
-		return "redirect:/viewBiens";
+		try {
+			bienService.supprimerBien(idBien);
+			return "redirect:/viewBiens";
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+			return "redirect:/viewBiens";
+		}
+	
 	}
 
 	@RequestMapping("/viewBien")

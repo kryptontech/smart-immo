@@ -20,7 +20,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 public class RegionController {
 
 	@Autowired
-	
 	RegionService regionService;
 
 	@RequestMapping(value = "/saveRegion", method = RequestMethod.POST)
@@ -57,8 +56,14 @@ public class RegionController {
 
 	@RequestMapping(value = "/deleteRegion-{idRegion}")
 	public String supprimerRegion(@PathVariable int idRegion) {
-		regionService.supprimerRegion(idRegion);
-		return "redirect:/viewRegions";
+
+		try {
+			regionService.supprimerRegion(idRegion);
+			return "redirect:/viewRegions";
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+			return "redirect:/viewRegions";
+		}
 	}
 
 	@RequestMapping("/viewRegion")
@@ -79,14 +84,14 @@ public class RegionController {
 	// /
 	// /
 	//
-	public   Region RegionfindbyName(String name) {
+	public Region RegionfindbyName(String name) {
 		List<Region> regs = regionService.consulterRegions();
 		Region Region = new Region();
 		for (int i = 0; i < regs.size(); i++) {
 
 			Region R = new Region();
 			R = regs.get(i);
-			
+
 			if (R.getLibelleRegion().equals(name)) {
 				Region = R;
 			}

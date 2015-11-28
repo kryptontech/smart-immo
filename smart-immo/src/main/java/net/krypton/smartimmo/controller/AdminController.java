@@ -18,77 +18,80 @@ import net.krypton.smartimmo.service.AdminService;
 
 @Controller
 public class AdminController {
-	
+
 	@Autowired
 	AdminService adminService;
-	
-	@RequestMapping(value="/login", method = RequestMethod.GET)
-	public String login( ModelMap model){
-		
+
+	@RequestMapping(value = "/login", method = RequestMethod.GET)
+	public String login(ModelMap model) {
+
 		return "login";
 	}
-	
-	@RequestMapping(value="/saveAdmin", method = RequestMethod.POST)
-	public String enregistrerAdmin(@Valid Admin a, BindingResult result, ModelMap model){
+
+	@RequestMapping(value = "/saveAdmin", method = RequestMethod.POST)
+	public String enregistrerAdmin(@Valid Admin a, BindingResult result,
+			ModelMap model) {
 		adminService.ajouterAdmin(a);
 		return "redirect:/viewAdmins";
 	}
+
 	@RequestMapping(value = "/saveAdmin", method = RequestMethod.GET)
-	public String newAdmin(ModelMap model){
+	public String newAdmin(ModelMap model) {
 		Admin admin = new Admin();
 		model.addAttribute("formAdmin", admin);
 		model.addAttribute("edit", false);
 		return "formAdmin";
 	}
-	
+
 	@RequestMapping(value = "/modifyAdmin-{idAdmin}", method = RequestMethod.GET)
-	public String editAdmin(@PathVariable int idAdmin, ModelMap model){
+	public String editAdmin(@PathVariable int idAdmin, ModelMap model) {
 		Admin admin = adminService.consulterAdmin(idAdmin);
 		model.addAttribute("formAdmin", admin);
 		model.addAttribute("edit", true);
 		return "formAdmin";
 	}
+
 	@RequestMapping(value = "/modifyAdmin-{idAdmin}", method = RequestMethod.POST)
-	public String modifierAdmin(@Valid Admin a, BindingResult result, ModelMap model, @PathVariable int idAdmin){
+	public String modifierAdmin(@Valid Admin a, BindingResult result,
+			ModelMap model, @PathVariable int idAdmin) {
 		adminService.modifierAdmin(a);
 		return "redirect:/viewAdmins";
 	}
-	
+
 	@RequestMapping(value = "/deleteAdmin-{idAdmin}")
-	public String supprimerAdmin(@PathVariable int idAdmin){
-		
-		adminService.supprimerAdmin(idAdmin);
-		return "redirect:/viewAdmins";
+	public String supprimerAdmin(@PathVariable int idAdmin) {
+
+		try {
+			adminService.supprimerAdmin(idAdmin);
+			return "redirect:/viewAdmins";
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+			return "redirect:/viewAdmins";
+		}
 	}
-	
-	
+
 	@RequestMapping("/viewAdmin")
-	public Admin consulterAdmin(int idAdmin)
-	{
+	public Admin consulterAdmin(int idAdmin) {
 		return adminService.consulterAdmin(idAdmin);
 	}
-	
-	@RequestMapping(value="/viewAdmins")
-	public String consulterAdmins(Map<String, Object> map)
-	{
+
+	@RequestMapping(value = "/viewAdmins")
+	public String consulterAdmins(Map<String, Object> map) {
 		map.put("listAdmin", adminService.consulterAdmins());
 		return "admin";
 	}
 
-	public Admin findAdminByRole(String role)
-	{
+	public Admin findAdminByRole(String role) {
 		List<Admin> admins = adminService.consulterAdmins();
 		Admin admin = new Admin();
-		for (int i = 0; i < admins.size(); i++)
-		{
+		for (int i = 0; i < admins.size(); i++) {
 			Admin a = new Admin();
 			a = admins.get(i);
-			
-			if (a.getTypeUser().equals(role))
-			{
-				admin = a;	
+
+			if (a.getTypeUser().equals(role)) {
+				admin = a;
 			}
 		}
 		return admin;
-	}	
+	}
 }

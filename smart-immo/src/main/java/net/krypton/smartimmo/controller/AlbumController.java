@@ -5,6 +5,12 @@ import java.util.Map;
 
 import javax.validation.Valid;
 
+import net.krypton.smartimmo.entities.Album;
+import net.krypton.smartimmo.entities.Bien;
+import net.krypton.smartimmo.model.AlbumModel;
+import net.krypton.smartimmo.service.AlbumService;
+import net.krypton.smartimmo.service.BienService;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -13,12 +19,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-
-import net.krypton.smartimmo.entities.Album;
-import net.krypton.smartimmo.entities.Bien;
-import net.krypton.smartimmo.model.AlbumModel;
-import net.krypton.smartimmo.service.AlbumService;
-import net.krypton.smartimmo.service.BienService;
+import org.springframework.web.servlet.ModelAndView;
 
 
 
@@ -51,6 +52,21 @@ public class AlbumController {
 		model.addAttribute("formAlbum", album);
 		model.addAttribute("edit", false);
 		return "formAlbum";
+	}
+	
+	////PAR HERMANNh;
+	@RequestMapping(value = "/saveAlbum-{idBien}", method = RequestMethod.GET)
+	public ModelAndView newAlbum(@PathVariable int idBien, ModelMap model) {
+		AlbumModel album = new AlbumModel();
+		
+		ModelAndView mav = new ModelAndView("formAlbum");
+
+		mav.addObject("msg", idBien);
+		mav.addObject("formAlbum", album);
+		mav.addObject("edit", false);
+
+		return mav;
+		// return "formAlbum";
 	}
 	
 	@RequestMapping(value = "/modifyAlbum-{idAlbum}", method = RequestMethod.GET)

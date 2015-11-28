@@ -126,7 +126,7 @@
 		<property name="driverClassName" value="com.mysql.jdbc.Driver"></property>
 		<property name="url" value="jdbc:mysql://localhost:3306/smartimmo"></property>
 		<property name="username" value="root"></property>
-		<property name="password" value=""></property>
+		<property name="password" value="jason"></property>
 	</bean>
 
 
@@ -165,6 +165,15 @@
 	</context:annotation-config>
 
 
+	
+	
+	<!-- Indispensable upload des fichiers-->
+	<bean id="multipartResolver"
+		class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+
+		<!-- one of the properties available; the maximum file size in bytes -->
+		<property name="maxUploadSize" value="20000000000" />
+	</bean>
 	
 
 

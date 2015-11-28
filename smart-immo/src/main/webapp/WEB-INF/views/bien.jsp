@@ -68,7 +68,7 @@
 									href="<c:url value='/deleteBien-${bien.idBien}' />"> <i
 										class="halflings-icon white trash"></i>
 								</a> <a class="btn" data-toggle="modal"
-									href="<c:url value='/addAlbum-${bien.idBien}' />">
+									href="<c:url value='/saveAlbum-${bien.idBien}' />">
 										<i class=" halflings-icon  white camera"></i>
 								</a></td>
 
