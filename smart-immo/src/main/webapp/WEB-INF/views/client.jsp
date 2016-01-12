@@ -1,6 +1,3 @@
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<%@ taglib uri="http://www.springframework.org/tags/form" prefix="f" %>
-<%@ page session="false" %>
 
 		<%@include file="haut.jsp" %>
 			<!-- start: Content -->
@@ -76,15 +73,6 @@
 				 </div>
 			 </div>
 			</div>
-        </div>
-	<footer>
-
-		<p>
-			<span style="text-align:left;float:left">&copy; 2013 <a href="http://themifycloud.com/downloads/janux-free-responsive-admin-dashboard-template/" alt="Bootstrap_Metro_Dashboard">JANUX Responsive Dashboard</a></span>
-			
-		</p>
-
-	</footer>
-	
+        </div>	
 	<!-- start: JavaScript-->
 <%@include file="bas.jsp" %>

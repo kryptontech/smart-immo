@@ -1,3 +1,5 @@
+
+
 <%@ include file="includes.jsp"%>
 <!DOCTYPE html>
 <html lang="fr">
@@ -17,13 +19,13 @@
 <!-- end: Mobile Specific -->
 
 <!-- start: CSS -->
-<link id="bootstrap-style" href="resources/css/bootstrap.min.css"
+<link id="bootstrap-style" href="<%=request.getContextPath()%>/resources/css/bootstrap.min.css"
 	rel="stylesheet">
-<link href="resources/css/bootstrap-responsive.min.css" rel="stylesheet">
-<link id="base-style" href="resources/css/style.css" rel="stylesheet">
-<link href="resources/css/monStyle.css" rel="stylesheet">
+<link href="<%=request.getContextPath()%>/resources/css/bootstrap-responsive.min.css" rel="stylesheet">
+<link id="base-style" href="<%=request.getContextPath()%>/resources/css/style.css" rel="stylesheet">
+<link href="<%=request.getContextPath()%>/resources/css/monStyle.css" rel="stylesheet">
 <link id="base-style-responsive"
-	href="resources/css/style-responsive.css" rel="stylesheet">
+	href="<%=request.getContextPath()%>/resources/css/style-responsive.css" rel="stylesheet">
 <link
 	href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800&subset=latin,cyrillic-ext,latin-ext'
 	rel='stylesheet' type='text/css'>
@@ -41,7 +43,7 @@
 	<![endif]-->
 
 <!-- start: Favicon -->
-<link rel="shortcut icon" href="img/favicon.ico">
+<link rel="shortcut icon" href="<%=request.getContextPath()%>/resources/img/favicon.ico">
 <!-- end: Favicon -->
 
 
@@ -125,7 +127,7 @@
 	</div>
 	<!-- start: Header -->
 
-	<div class="container-fluid-full">
+	<div class="container-fluid">
 		<div class="row-fluid">
 
 			<!-- start: Main Menu -->
@@ -141,7 +143,7 @@
 							<ul>
 								<li><a class="submenu"
 									href="<c:url value='/viewFournisseurs' />"><i
-										class="icon-file-alt"></i><span class="hidden-tablet">PARICULIERS</span></a></li>
+										class="icon-file-alt"></i><span class="hidden-tablet">PARTICULIER</span></a></li>
 								<li><a class="submenu"
 									href="<c:url value='/viewAgences' />"><i
 										class="icon-file-alt"></i><span class="hidden-tablet">AGENCE</span></a></li>

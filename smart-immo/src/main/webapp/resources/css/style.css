@@ -458,7 +458,7 @@ a.brand span {
   	color: #fff;
 	background-color: #080808;
 }
-
+  
 .nav-tabs.nav-stacked  > li.active > a,
 .nav-tabs.nav-stacked  > li > ul > li.active > a {
   	background: #578EBE;
@@ -485,7 +485,7 @@ border-bottom: 1px solid transparent;
 .nav-tabs.nav-stacked  > li.active > ul {
 	padding: 5px 0px;
   	color: #3b3b41;
-  	background: #fff;
+  	background: #1C2B35;
 }
 
 .nav-tabs.nav-stacked > li:first-child > a {

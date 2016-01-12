@@ -1,11 +1,8 @@
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<%@ taglib uri="http://www.springframework.org/tags/form" prefix="f" %>
-<%@ page session="false" %>
 
 		<%@include file="haut.jsp" %>
 			<!-- start: Content -->
 			<div id="content" class="span12">
-			
+		
 			
 			  <ul class="breadcrumb">
 				  <li>
@@ -13,7 +10,7 @@
 					   <a href="<c:url value='/' />">Accueil</a> 
 					   <i class="icon-angle-right"></i>
 				  </li>
-				<li><a href="">Ajouter nouveau</a></li>
+				<li><a href="">Ajouter nouveau luuuu</a></li>
 			  </ul>
 			  <div class="row-fluid sortable box">	
 					 <f:form method="POST" modelAttribute="formAgence" class="form-inline well" enctype="multipart/form-data">
@@ -146,25 +143,18 @@
 							</div>
 							
 							<br><br> 
-							<div class="container">
+							<div class="container groupbtn">
 							  <div class=" span10">
 								<div class="formgroup">
-									<c:choose>
-										<c:when test="${edit}">
-											<button class="btn btn-primary" type="submit">
-												Modifier 
-												<i class="icon-white icon-ok-sign"></i> 
-											</button>
-											<input type="reset" value="Cancel" class="btn btn-danger btn-sm"/> 
-										</c:when>
-										<c:otherwise>
-											<button class="btn btn-primary" type="submit">
-												Enregistrer
-												<i class="icon-white icon-ok-sign"></i> 
-											</button>
-											<input type="reset" value="Cancel" class="btn btn-danger btn-sm"/> 
-										</c:otherwise>
-									</c:choose>
+								
+								 <c:choose>
+                    <c:when test="${edit}">
+                        <input type="submit" value="Modifier" class="btn btn-primary btn-sm"/>  <a class="btn btn-danger "href="<c:url value='/viewAlbums' />">Cancel</a>
+                    </c:when>
+                    <c:otherwise>
+                        <input type="submit" value="Enregister" class="btn btn-primary btn-sm"/>  <a class="btn btn-danger" href="<c:url value='/viewAlbums' />">Cancel</a>
+                    </c:otherwise>
+                </c:choose>
 								</div>
 							 </div>
 							</div>
